@@ -91,7 +91,7 @@ public class Asistent extends Applet implements MouseListener, ActionListener, M
  		notes.put("A", 225.875);
  		notes.put("B", 253.375);
  		
-	    img = getImage(getCodeBase(),"TunerApplet.jpg");
+	    img = getImage(getCodeBase(),"images/backGround.jpg");
 		imgE = getImage(getCodeBase(),"Eselected.jpg");
 		imgA = getImage(getCodeBase(),"Aselected.jpg");
 		imgD = getImage(getCodeBase(),"Dselected.jpg");
