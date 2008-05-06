@@ -503,7 +503,7 @@ public class CaptureThread extends Thread
                     //-------
                     NodeList nameNote = firstPersonElement.getElementsByTagName("nameNote");
                     Element nameNoteElement = (Element)nameNote.item(0);
-
+                    
                     //-------
                     NodeList frequence = firstPersonElement.getElementsByTagName("frequence");
                     Element frequenceElement = (Element)frequence.item(0);
@@ -511,8 +511,11 @@ public class CaptureThread extends Thread
 
                     Note newNote = new Note();
                     
-                    newNote.setName(nameNoteElement.toString());
-                    newNote.setFrequence(Double.valueOf(frequenceElement.toString()));
+                    newNote.setName(nameNoteElement.getChildNodes().item(0).getNodeValue().trim());
+                    newNote.setFrequence(Double.valueOf(frequenceElement.getChildNodes().item(0).getNodeValue()));
+                    
+                    newNote.getName();
+                    
 
                 }//end of if clause
 
