@@ -2,6 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path=""/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="D:/Documentos de Administrador  ES ESTE ESTE/Leandro/archivos/U.T.N/5ª año/Procesamiento de señales/afinador java/GuitarTuner/TunerApplet.jar"/>
+	<classpathentry kind="lib" path="/home/leandro/eclipse/workspaceTesting/noteTeacher/TunerApplet.jar"/>
 	<classpathentry kind="output" path=""/>
 </classpath>
