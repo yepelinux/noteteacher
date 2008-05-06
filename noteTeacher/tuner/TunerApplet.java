@@ -40,8 +40,6 @@ import java.io.*;
 
 public class TunerApplet extends Applet implements MouseListener, ActionListener, MouseMotionListener
 {  
-
-	 
 	
 	private String[] Secuence = {"E1","A","G","A","E1"};
 	private Collection noteSecuence = new ArrayList();
