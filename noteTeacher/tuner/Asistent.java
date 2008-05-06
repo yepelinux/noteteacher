@@ -31,13 +31,9 @@ import org.xml.sax.SAXParseException;
 public class Asistent extends Applet implements MouseListener, ActionListener, MouseMotionListener
 {  
 	
+	
 	private String currentNote;
-	private Collection currentSequence;
-	 
-	/* -------   Modify   -------*/
- 	
-	private String[] Secuence = {"E","A","G","A","E"};
-	private Collection noteSecuence = new ArrayList();
+	private Collection currentSecuence = new ArrayList();
 	private static double FREC_UMBRAL = 5;
 	
 
@@ -50,7 +46,6 @@ public class Asistent extends Applet implements MouseListener, ActionListener, M
 	double freqOK = 0;
 	
 	/* --------------------------*/
-	
 	
 	Image img;
 	Image imgE;
@@ -82,6 +77,8 @@ public class Asistent extends Applet implements MouseListener, ActionListener, M
  		initNotes();
  		initSequence();
  		initApplet();
+ 		
+ 		setSequence("level 2");
 
  		audioFormat = new AudioFormat(8000.0F,8,1,true,false);
 		DataLine.Info dataLineInfo = new DataLine.Info(TargetDataLine.class,audioFormat);
@@ -123,19 +120,13 @@ public class CaptureThread extends Thread
 			int nbMesures = 1;
 			double[] ar = new double[spectreSize];
       		double[] ai = new double[spectreSize];
-      					
       		
-      		noteSecuence.addAll(listSequences.get("level 2"));
-      		
-      		
-			Iterator it = noteSecuence.iterator();
+			Iterator it = currentSecuence.iterator();
 			
 			selectNote((String)it.next());
       			
       		while(((cnt2 = targetDataLine.read(data,0,sampleSize)) > 0))
-			{
-      			
-								
+			{					
 				try
 				{
  					for(int i = 0; i < sampleSize; i++)
@@ -190,10 +181,7 @@ public class CaptureThread extends Thread
 								System.out.println("Secuencia Completada!");
 								return;
 							}
-						
 						}
-						
-						
 					}
 					
 					
@@ -595,6 +583,11 @@ public class CaptureThread extends Thread
 		infoPanel.setVisible(false);
 		add(infoPanel);
 		
+	}
+	
+	public void setSequence(String sequenceName){
+		
+		currentSecuence.addAll(listSequences.get(sequenceName));
 	}
 }
 	
