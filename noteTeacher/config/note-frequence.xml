@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<notes>
+	<note>
+		<nameNote>E</nameNote>
+		<frequence>169.25</frequence>
+	</note>
+	<note>
+	  	<nameNote>F</nameNote>
+	  	<frequence>179.0</frequence>
+	</note>
+	<note>
+	  	<nameNote>G</nameNote>
+	  	<frequence>201.125</frequence>
+	</note>
+</notes>
+
