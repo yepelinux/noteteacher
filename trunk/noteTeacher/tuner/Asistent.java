@@ -56,8 +56,6 @@ public class Asistent extends Applet implements MouseListener, ActionListener, M
 	/* --------------------------*/
 	
 	
-	
-	
 	Image img;
 	Image imgE;
 	Image imgA;
