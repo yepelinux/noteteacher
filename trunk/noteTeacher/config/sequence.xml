@@ -5,7 +5,7 @@
 	<sequence>	
 		<name>level 1</name>
 		<notes>
-			<note>C</note>
+			<note>E</note>
 			<note>A</note>
 			<note>F</note>
 			<note>D</note>
@@ -19,7 +19,7 @@
 	<sequence>	
 		<name>level 2</name>
 		<notes>
-			<note>C</note>
+			<note>D</note>
 			<note>C</note>
 			<note>F</note>
 			<note>G</note>
