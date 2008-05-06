@@ -52,7 +52,9 @@ import org.xml.sax.SAXParseException;
 
 public class Asistent extends Applet implements MouseListener, ActionListener, MouseMotionListener
 {  
-
+	
+	private String currentNote;
+	private Collection currentSequence;
 	 
 	/* -------   Modify   -------*/
  	
@@ -60,8 +62,9 @@ public class Asistent extends Applet implements MouseListener, ActionListener, M
 	private Collection noteSecuence = new ArrayList();
 	private static double FREC_UMBRAL = 5;
 	
-	private String currentNote;
+
 	
+	Map<String,Collection> listSequences = new HashMap<String, Collection>();
 	Map<String,Double> notes = new HashMap<String,Double>();
 	
 	double freqMin = 10.0;
@@ -98,41 +101,13 @@ public class Asistent extends Applet implements MouseListener, ActionListener, M
  	public void start ()
 	{   
  		
- 		init();
+ 		initNotes();
+ 		initSequence();
+ 		initApplet();
+
+ 		audioFormat = new AudioFormat(8000.0F,8,1,true,false);
+		DataLine.Info dataLineInfo = new DataLine.Info(TargetDataLine.class,audioFormat);
  		
- 		notes.put("C", 134.125);
- 		notes.put("D", 150.75);
- 		notes.put("E", 169.25);
- 		notes.put("F", 179.0);
- 		notes.put("G", 201.125);
- 		notes.put("A", 225.875);
- 		notes.put("B", 253.375);
- 		
-	    img = getImage(getCodeBase(),"images/backGround.jpg");
-
-		this.addMouseListener(this);
-		this.addMouseMotionListener(this);		
-
-		infoPanel.setLayout(new BorderLayout());
-
-		Panel buttonPanel = new Panel();
-		Label titleLabel = new Label("GuitarTuner");
-
-
-
-		TextArea infoArea = new TextArea("GuitarTuner has been developed by OpenStudio\nwww.openstudio.fr\nCopyright (2005) Arnault Pachot.\n\nThis program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or any later version.\n\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. (see http://www.gnu.org/copyleft/gpl.html)\n\nYou should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.\n\nContact : Arnault PACHOT\nOpenStudio, Editeur de logiciels libres\nLe bourg, 43160 Saint Pal de Senouire, FRANCE.\ninfo@openstudio.fr\n", 8, 40, TextArea.SCROLLBARS_VERTICAL_ONLY );
-		infoArea.setBackground(Color.lightGray);
-		buttonPanel.add(closeButton);
-		buttonPanel.setBackground(Color.lightGray);
-		closeButton.addActionListener(this);
-		//infoPanel.add(titleLabel);
-		infoPanel.setBackground(Color.lightGray);
-		infoPanel.add(infoArea);
-		infoPanel.add(buttonPanel, BorderLayout.SOUTH);
-		infoPanel.setVisible(false);
-		add(infoPanel);
-		audioFormat = new AudioFormat(8000.0F,8,1,true,false);
-      		DataLine.Info dataLineInfo = new DataLine.Info(TargetDataLine.class,audioFormat);
 		try
 		{
 			targetDataLine = (TargetDataLine)AudioSystem.getLine(dataLineInfo);
@@ -172,11 +147,8 @@ public class CaptureThread extends Thread
       		double[] ai = new double[spectreSize];
       					
       		
-      		noteSecuence.add(Secuence[0]);
-      		noteSecuence.add(Secuence[1]);
-      		noteSecuence.add(Secuence[2]);
-      		noteSecuence.add(Secuence[3]);
-      		noteSecuence.add(Secuence[4]);
+      		noteSecuence.addAll(listSequences.get("level 1"));
+      		
       		
 			Iterator it = noteSecuence.iterator();
 			
@@ -472,9 +444,18 @@ public class CaptureThread extends Thread
 		return false;
 	}
 	
-	public void init(){
+	public void initNotes(){
 		
-	    try {
+ 		/*notes.put("C", 134.125);
+ 		notes.put("D", 150.75);
+ 		notes.put("E", 169.25);
+ 		notes.put("F", 179.0);
+ 		notes.put("G", 201.125);
+ 		notes.put("A", 225.875);
+ 		notes.put("B", 253.375);*/
+		
+		
+		try {
 
             DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
@@ -489,7 +470,7 @@ public class CaptureThread extends Thread
             
             
             NodeList listOfNotes = doc.getElementsByTagName("note");
-            System.out.println("Total of notes : " + listOfNotes.getLength());
+            System.out.println("Total of notes frequence: " + listOfNotes.getLength());
 
             for(int s=0; s<listOfNotes.getLength() ; s++){
 
@@ -509,14 +490,8 @@ public class CaptureThread extends Thread
                     Element frequenceElement = (Element)frequence.item(0);
                     //------
 
-                    Note newNote = new Note();
+                    notes.put(nameNoteElement.getChildNodes().item(0).getNodeValue().trim(), Double.valueOf(frequenceElement.getChildNodes().item(0).getNodeValue()));
                     
-                    newNote.setName(nameNoteElement.getChildNodes().item(0).getNodeValue().trim());
-                    newNote.setFrequence(Double.valueOf(frequenceElement.getChildNodes().item(0).getNodeValue()));
-                    
-                    newNote.getName();
-                    
-
                 }//end of if clause
 
 
@@ -536,12 +511,113 @@ public class CaptureThread extends Thread
         }catch (Throwable t) {
         t.printStackTrace ();
         }
-		
-		
-
-
 	}
+	
+	
+	
+	public void initSequence(){
+		
+		String nameSecuence = null;
+		Collection noteSecuence = new ArrayList<String>();
+		
+		try {
 
+            DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
+            Document doc = docBuilder.parse (new File("config/sequence.xml"));
+
+            // normalize text representation
+            doc.getDocumentElement ().normalize ();
+            //------            
+            
+            
+            NodeList listOfSequences = doc.getElementsByTagName("sequence");
+            System.out.println("Total of sequences : " + listOfSequences.getLength());
+
+            for(int s=0; s<listOfSequences.getLength() ; s++){
+
+
+                Node firstSecuenceNode = listOfSequences.item(s);
+                if(firstSecuenceNode.getNodeType() == Node.ELEMENT_NODE){
+
+
+                    Element firstSecuenceElement = (Element)firstSecuenceNode;
+
+                    //-------
+                    NodeList nameSequence = firstSecuenceElement.getElementsByTagName("name");
+                    Element nameSequenceElement = (Element)nameSequence.item(0);
+                    
+                    nameSecuence = nameSequenceElement.getChildNodes().item(0).getNodeValue().trim();
+                    
+                    //-------
+                    NodeList notesSequence = firstSecuenceElement.getElementsByTagName("note");
+                    
+                    for(int t=0; t<notesSequence.getLength() ; t++){
+                    	
+                        Node firstNoteSequenceNode = notesSequence.item(t);
+                        
+                        if(firstNoteSequenceNode.getNodeType() == Node.ELEMENT_NODE){
+                        	
+                        	Element firstNoteElement = (Element)firstNoteSequenceNode;
+                            
+                            noteSecuence.add(firstNoteElement.getChildNodes().item(0).getNodeValue().trim());
+                        	
+                        }
+                    }    
+                }//end of if clause
+                
+                listSequences.put(nameSecuence, noteSecuence);
+                noteSecuence = new ArrayList<String>();
+
+            }//end of for loop with s var
+            
+            
+
+            
+
+        }catch (SAXParseException err) {
+        System.out.println ("** Parsing error" + ", line " 
+             + err.getLineNumber () + ", uri " + err.getSystemId ());
+        System.out.println(" " + err.getMessage ());
+
+        }catch (SAXException e) {
+        Exception x = e.getException ();
+        ((x == null) ? e : x).printStackTrace ();
+
+        }catch (Throwable t) {
+        t.printStackTrace ();
+        }
+		
+		
+	}
+	
+	public void initApplet(){
+		
+	    img = getImage(getCodeBase(),"images/backGround.jpg");
+
+		this.addMouseListener(this);
+		this.addMouseMotionListener(this);		
+
+		infoPanel.setLayout(new BorderLayout());
+
+		Panel buttonPanel = new Panel();
+		Label titleLabel = new Label("GuitarTuner");
+
+
+
+		TextArea infoArea = new TextArea("Notes Teacher\n", 8, 40, TextArea.SCROLLBARS_VERTICAL_ONLY );
+		infoArea.setBackground(Color.lightGray);
+		buttonPanel.add(closeButton);
+		buttonPanel.setBackground(Color.lightGray);
+		closeButton.addActionListener(this);
+		//infoPanel.add(titleLabel);
+		infoPanel.setBackground(Color.lightGray);
+		infoPanel.add(infoArea);
+		infoPanel.add(buttonPanel, BorderLayout.SOUTH);
+		infoPanel.setVisible(false);
+		add(infoPanel);
+		
+	}
 }
 	
 

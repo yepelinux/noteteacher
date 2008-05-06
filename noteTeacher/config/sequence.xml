@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sequences>
+
+	<sequence>	
+		<name>level 1</name>
+		<notes>
+			<note>C</note>
+			<note>A</note>
+			<note>F</note>
+			<note>D</note>
+			<note>A</note>
+			<note>E</note>
+			<note>C</note>
+			<note>F</note>
+		</notes>
+	</sequence>
+	
+	<sequence>	
+		<name>level 2</name>
+		<notes>
+			<note>C</note>
+			<note>C</note>
+			<note>F</note>
+			<note>G</note>
+			<note>A</note>
+			<note>C</note>
+			<note>D</note>
+			<note>F</note>
+		</notes>
+	</sequence>
+	
+</sequences>
