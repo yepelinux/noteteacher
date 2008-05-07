@@ -1,46 +1,56 @@
 package tuner;
 
-import java.applet.*;  
-import java.awt.*;  
-import java.awt.event.*;
-import javax.sound.sampled.*;
-import javax.swing.text.html.parser.DTD;
-import javax.swing.text.html.parser.Parser;
-
-import java.net.*;
+import java.applet.Applet;
+import java.awt.BorderLayout;
+import java.awt.Button;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Label;
+import java.awt.Panel;
+import java.awt.TextArea;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.io.*;
 
-import javax.xml.parsers.*;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.TargetDataLine;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException; 
-
-
+import org.xml.sax.SAXParseException;
 
 public class Asistent extends Applet implements MouseListener, ActionListener, MouseMotionListener
 {  
 	
+
+	private Map<String,Collection> listSequences = new HashMap<String, Collection>();
+	private Map<String,Double> notes = new HashMap<String,Double>();
 	
 	private String currentNote;
 	private Collection currentSecuence = new ArrayList();
 	private static double FREC_UMBRAL = 5;
 	
-
 	
-	Map<String,Collection> listSequences = new HashMap<String, Collection>();
-	Map<String,Double> notes = new HashMap<String,Double>();
-	
+	//Rango de frecuencias en el que se muestrea
 	double freqMin = 10.0;
 	double freqMax = 500.0;
-	double freqOK = 0;
 	
 	/* --------------------------*/
 	
@@ -98,12 +108,12 @@ public class Asistent extends Applet implements MouseListener, ActionListener, M
 	}
 
 
-public class CaptureThread extends Thread
-{			
-  	public void run()
-	{
-    		try
+	public class CaptureThread extends Thread
+	{			
+	  	public void run()
 		{
+	    		try
+			{
     			
 			int cnt2 = 0;
 			int spectreSize = 2048*2*2*2*2;
@@ -202,13 +212,13 @@ public class CaptureThread extends Thread
       			System.out.println(e);
       			System.exit(0);
     		}		
-  	}
-	
-}
+	  	}
+		
+	}
    
 
- public static void computeFFT(int sign, int n, double[] ar, double[] ai)
-   {
+	public static void computeFFT(int sign, int n, double[] ar, double[] ai)
+	 {
       double scale = 2.0 / (double)n;
       int i, j;
       for(i = j = 0; i < n; ++i)
@@ -282,73 +292,9 @@ public class CaptureThread extends Thread
 
  	public void mouseClicked(MouseEvent e) 
 	{
-    	 	int x = e.getX();
+     	int x = e.getX();
 		int y = e.getY();
-		int selectedNote = 0;
-		if (x > 74 && y > 137 && x < 94 && y < 154)
-		{
-			freqMin = 77.781;
-			freqMax = 87.307;
-			freqOK = 82.406;
-		
-			imgSelected = imgE;
-			coordSelectedx = 70;
-			
-		}
-		if (x > 110 && y > 137 && x < 128 && y < 154)
-		{
-			freqMin = 103.826;
-			freqMax = 116.540;
-			freqOK = 110.0;
-			
-			imgSelected = imgA;
-			coordSelectedx = 106;
-		}
-		if (x > 144 && y > 137 && x < 163 && y < 154)
-		{
-			freqMin = 138.591;
-			freqMax = 155.563;
-			freqOK = 146.832;
-			imgSelected = imgD;
-			coordSelectedx = 141;
-		}
-		if (x > 180 && y > 137 && x < 199 && y < 154)
-		{
-			freqMin = 184.997;
-			freqMax = 207.652;
-			freqOK = 195.997;
-			imgSelected = imgG;
-			coordSelectedx = 176;
-		}
-		if (x > 214 && y > 137 && x < 236 && y < 154)
-		{
-			freqMin = 233.081;
-			freqMax = 261.625;
-			freqOK = 246.941;
-			imgSelected = imgB;
-			coordSelectedx = 212;
-		}
-		if (x > 248 && y > 137 && x < 268 && y < 154)
-		{
-			freqMin = 311.126;
-			freqMax = 349.228;
-			freqOK = 329.627;
-			imgSelected = imgE;
-			coordSelectedx = 247;
-		}
-		if (x > 24 && y > 179 && x < 313 && y < 198)
-		{
-		
-			
-			infoPanel.setVisible(true);
-			validate();
-			repaint();
-
-		}
-		repaint();
-
-		
-    	}
+	}
  
 	public void mouseMoved(MouseEvent e)
 	{
@@ -367,11 +313,7 @@ public class CaptureThread extends Thread
 		}
 	}
    
-  
-    //========================================================== ignored
-    //==== the other motion events must be here, but do nothing.
-     public void mouseDragged (MouseEvent e) {}  // ignore
-    //==== these "slow" mouse events are ignored.
+    public void mouseDragged (MouseEvent e) {}  // ignore
     public void mouseEntered (MouseEvent e) {}  // ignore
     public void mouseExited  (MouseEvent e) {}  // ignore
     public void mousePressed (MouseEvent e) {}  // ignore
@@ -379,10 +321,7 @@ public class CaptureThread extends Thread
 
 
 	public void actionPerformed(ActionEvent evt) 
-    	{
-		
-		
-		
+    	{		
     		if (evt.getSource()==closeButton)
 		{
 			infoPanel.setVisible(false);
@@ -408,15 +347,6 @@ public class CaptureThread extends Thread
 	}
 	
 	public void initNotes(){
-		
- 		/*notes.put("C", 134.125);
- 		notes.put("D", 150.75);
- 		notes.put("E", 169.25);
- 		notes.put("F", 179.0);
- 		notes.put("G", 201.125);
- 		notes.put("A", 225.875);
- 		notes.put("B", 253.375);*/
-		
 		
 		try {
 
@@ -534,10 +464,6 @@ public class CaptureThread extends Thread
 
             }//end of for loop with s var
             
-            
-
-            
-
         }catch (SAXParseException err) {
         System.out.println ("** Parsing error" + ", line " 
              + err.getLineNumber () + ", uri " + err.getSystemId ());
