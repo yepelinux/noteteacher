@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <notes>
+	<note>
+		<nameNote>C</nameNote>
+		<frequence>134.125</frequence>
+	</note>
+	<note>
+		<nameNote>D</nameNote>
+		<frequence>150.75</frequence>
+	</note>
 	<note>
 		<nameNote>E</nameNote>
 		<frequence>169.25</frequence>
@@ -14,5 +21,12 @@
 	  	<nameNote>G</nameNote>
 	  	<frequence>201.125</frequence>
 	</note>
+	<note>
+	  	<nameNote>A</nameNote>
+	  	<frequence>225.875</frequence>
+	</note>
+	<note>
+	  	<nameNote>B</nameNote>
+	  	<frequence>253.375</frequence>
+	</note>
 </notes>
-
