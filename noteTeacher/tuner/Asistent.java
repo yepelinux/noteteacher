@@ -16,9 +16,6 @@ import java.util.Map;
 import java.io.*;
 
 import javax.xml.parsers.*;
-
-import model.Note;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -588,6 +585,7 @@ public class CaptureThread extends Thread
 	public void setSequence(String sequenceName){
 		
 		currentSecuence.addAll(listSequences.get(sequenceName));
+		
 	}
 }
 	
