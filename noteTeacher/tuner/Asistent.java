@@ -85,8 +85,6 @@ public class Asistent extends Applet implements MouseListener, ActionListener, M
  		initSequence();
  		initApplet();
  		
- 		setSequence("level 2");
-
  		audioFormat = new AudioFormat(8000.0F,8,1,true,false);
 		DataLine.Info dataLineInfo = new DataLine.Info(TargetDataLine.class,audioFormat);
  		
@@ -95,8 +93,12 @@ public class Asistent extends Applet implements MouseListener, ActionListener, M
 			targetDataLine = (TargetDataLine)AudioSystem.getLine(dataLineInfo);
 			targetDataLine.open(audioFormat);
 			
-			captureThread = new CaptureThread();
-			captureThread.start();
+			startNoteSequence("level 2");
+			
+			stopNoteSecuence();
+			
+			startNoteSequence("level 1");
+
 		
 		}
 		catch (Exception e2) 
@@ -511,6 +513,22 @@ public class Asistent extends Applet implements MouseListener, ActionListener, M
 	public void setSequence(String sequenceName){
 		
 		currentSecuence.addAll(listSequences.get(sequenceName));
+		
+	}
+	
+	public void startNoteSequence(String sequence){
+
+		setSequence(sequence);
+		
+		captureThread = new CaptureThread();
+		captureThread.start();
+		
+	}
+	
+	public void stopNoteSecuence(){
+		
+		captureThread.interrupt();
+		currentSecuence.clear();
 		
 	}
 }
