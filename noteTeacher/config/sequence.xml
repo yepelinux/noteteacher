@@ -3,6 +3,14 @@
 <sequences>
 
 	<sequence>	
+		<name>level 0</name>
+		<notes>
+			<note>E</note>
+			<note>D</note>
+		</notes>
+	</sequence>
+	
+	<sequence>	
 		<name>level 1</name>
 		<notes>
 			<note>E</note>
