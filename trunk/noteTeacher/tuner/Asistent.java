@@ -1,23 +1,34 @@
 package tuner;
 
-import java.applet.Applet;
-import java.awt.Button;
 import java.awt.Color;
-import java.awt.Panel;
-import java.awt.TextArea;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
+import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.TargetDataLine;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -28,14 +39,20 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
-public class Asistent extends Applet {
+import com.jgoodies.forms.factories.FormFactory;
+import com.jgoodies.forms.layout.CellConstraints;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.RowSpec;
 
-	private Map<String, Collection<String>> listSequences = new HashMap<String, Collection<String>>();
+public class Asistent extends JFrame {
+
+	private Map<String, List<String>> sequences = new HashMap<String, List<String>>();
 	private Map<String, Double> notes = new HashMap<String, Double>();
 
 	private String currentNote;
-	private Collection<String> currentSecuence = new ArrayList<String>();
-	private static double FREC_UMBRAL = 5;
+	private List<String> currentSecuence = new ArrayList<String>();
+	private int frecUmbral = 5;
 
 	// Rango de frecuencias en el que se muestrea
 	double freqMin = 10.0;
@@ -47,37 +64,178 @@ public class Asistent extends Applet {
 	private CaptureThread captureThread;
 	private AudioFormat audioFormat;
 
-	private Panel infoPanel;
-	private Button closeButton;
-	boolean bStopTuner = false;
+	private JComboBox sequenceCombo;
+	private JLabel noteLabel;
+	private JLabel noteFrecLabel;
+	private JLabel readNoteFrecLabel;
+	protected JButton startStop;
+	protected boolean stopped = true;
+	
 
-	@Override
-	public void start() {
+	public Asistent() {
+		super();
 
+		setTitle("Assistant");
+		setLookAndFeel();
+		getContentPane().setLayout(new FormLayout(
+			new ColumnSpec[] {
+				FormFactory.RELATED_GAP_COLSPEC,
+				new ColumnSpec("90dlu"),
+				FormFactory.RELATED_GAP_COLSPEC,
+				new ColumnSpec("111dlu"),
+				FormFactory.RELATED_GAP_COLSPEC},
+			new RowSpec[] {
+				FormFactory.RELATED_GAP_ROWSPEC,
+				new RowSpec("10dlu"),
+				FormFactory.DEFAULT_ROWSPEC,
+				new RowSpec("40dlu"),
+				FormFactory.RELATED_GAP_ROWSPEC,
+				new RowSpec("23dlu")}));
+		setSize(new Dimension(332, 199));
+		setResizable(false);
+		
+		AppletListener listener = new AppletListener(this);
+		this.addMouseListener(listener);
+		this.addMouseMotionListener(listener);
+
+		// Combo secuencia
+		final JLabel seqLabel = new JLabel();
+		seqLabel.setText("Secuencia");
+		getContentPane().add(seqLabel, new CellConstraints(2, 2, CellConstraints.DEFAULT, CellConstraints.BOTTOM));
+		sequenceCombo = new JComboBox();
+		getContentPane().add(sequenceCombo, new CellConstraints(2, 3, CellConstraints.FILL, CellConstraints.DEFAULT));
+
+		// Slider tolerancia
+		final JLabel sliderLabel = new JLabel();
+		sliderLabel.setText("Error máximo permitido (Hz)");
+		getContentPane().add(sliderLabel, new CellConstraints(4, 2));
+
+		final JSlider slider = new JSlider(SwingConstants.HORIZONTAL, 0, 10, frecUmbral);
+		slider.setOpaque(false);
+		slider.setMinorTickSpacing(1);
+		slider.setMajorTickSpacing(5);
+		slider.setPaintTicks(true);
+		slider.setPaintLabels(true);
+		slider.addChangeListener(new ChangeListener(){
+			public void stateChanged(ChangeEvent e) {
+		        JSlider source = (JSlider)e.getSource();
+		        if (!source.getValueIsAdjusting()) {
+		            frecUmbral = source.getValue();		            
+		        }
+			}
+		});
+		getContentPane().add(slider, new CellConstraints(4, 3, CellConstraints.FILL, CellConstraints.DEFAULT));
+
+		// Nota en la secuencia
+		JPanel notePanel = getNotePanel();
+		getContentPane().add(notePanel, new CellConstraints(2, 4, CellConstraints.DEFAULT, CellConstraints.FILL));
+		
+		// Nota leída
+		TitledBorder border = BorderFactory.createTitledBorder("Frecuencia leída");
+		border.setTitleJustification(TitledBorder.CENTER);
+		readNoteFrecLabel = new JLabel();
+		readNoteFrecLabel.setBorder(border);
+		readNoteFrecLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		readNoteFrecLabel.setFont(new Font("Arial", Font.BOLD, 20));
+		getContentPane().add(readNoteFrecLabel, new CellConstraints(4, 4, CellConstraints.DEFAULT, CellConstraints.FILL));
+		
+		// Botón
+		startStop = new JButton();
+		startStop.setText("Iniciar");
+		startStop.addMouseListener(new MouseListener() {
+			public void mouseClicked(MouseEvent event) {
+				if(stopped) {
+					startListening();
+				} else {
+					stopListening();
+				}				
+			}
+
+			public void mouseEntered(MouseEvent arg0) {return;}
+			public void mouseExited(MouseEvent arg0) {return;}
+			public void mousePressed(MouseEvent arg0) {return;}
+			public void mouseReleased(MouseEvent arg0) {return;}
+
+		});
+		getContentPane().add(startStop, new CellConstraints(2, 6, 3, 1, CellConstraints.CENTER, CellConstraints.DEFAULT));
+
+		// Inicializo los componentes principales
 		initNotes();
-		initSequence();
-		initApplet();
+		initSequences();
+		initThread();
 
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setVisible(true);
+
+	}
+
+	private JPanel getNotePanel() {
+		TitledBorder border = BorderFactory.createTitledBorder("Nota");
+		border.setTitleJustification(TitledBorder.CENTER);
+
+		JPanel panel = new JPanel();
+		panel.setLayout(new FormLayout(
+			"33dlu, 38dlu",
+			"23dlu"));
+		panel.setBorder(border);
+		panel.setOpaque(false);
+		
+		noteLabel = new JLabel();
+		noteLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		noteLabel.setFont(new Font("Arial", Font.BOLD, 20));
+		panel.add(noteLabel, new CellConstraints(1, 1, CellConstraints.DEFAULT, CellConstraints.DEFAULT));
+		noteFrecLabel = new JLabel();
+		noteFrecLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		noteFrecLabel.setFont(new Font("Arial", Font.PLAIN, 10));
+		panel.add(noteFrecLabel, new CellConstraints(2, 1, CellConstraints.DEFAULT, CellConstraints.DEFAULT));
+		return panel;
+	}
+
+	private void startListening() {
+		sequenceCombo.setEnabled(false);
+		startStop.setText("Detener");
+		String seq = (String) sequenceCombo.getSelectedItem();
+		startNoteSequence(seq);
+		if(captureThread.getState().equals(Thread.State.TERMINATED)) {
+			initThread();
+		}
+		if(!captureThread.isAlive()) {			
+			captureThread.start();
+		}
+
+	}
+	
+	private void stopListening() {
+		sequenceCombo.setEnabled(true);
+		startStop.setText("Iniciar");
+		stopNoteSecuence();
+	}
+	
+	private void initThread() {
 		audioFormat = new AudioFormat(8000.0F, 8, 1, true, false);
 		DataLine.Info dataLineInfo = new DataLine.Info(TargetDataLine.class, audioFormat);
 
 		try {
 			targetDataLine = (TargetDataLine) AudioSystem.getLine(dataLineInfo);
 			targetDataLine.open(audioFormat);
-
-			startNoteSequence("level 2");
-			stopNoteSecuence();
-
-			startNoteSequence("level 1");
-
-		} catch (Exception e) {
-			repaint();
-			System.out.println("Error : Unable to start acqusition -> " + e);
+		} catch (LineUnavailableException e) {						
+			System.out.println("No se puede leer de la línea de audio");
+			e.printStackTrace();
 		}
+
+		captureThread = new CaptureThread();
 	}
 
+	private void setLookAndFeel() {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	/**
 	 * Calcula la transformada rápida de Fourier a partir de una señal
+	 * 
 	 * @param sign
 	 * @param n
 	 * @param ar La señal
@@ -128,8 +286,9 @@ public class Asistent extends Applet {
 	 * @param note
 	 */
 	public void selectNote(String note) {
-		System.out.println("Asigno nota: " + note);
 		currentNote = note;
+		noteLabel.setText(note);
+		noteFrecLabel.setText("(" + notes.get(note) + " Hz)");
 	}
 
 	/**
@@ -139,7 +298,7 @@ public class Asistent extends Applet {
 	 * @return
 	 */
 	public boolean isTheNote(double frecNote, double currentFrec) {
-		if (Math.abs(currentFrec - frecNote) < FREC_UMBRAL)
+		if (Math.abs(currentFrec - frecNote) < frecUmbral)
 			return true;
 
 		return false;
@@ -150,11 +309,9 @@ public class Asistent extends Applet {
 	 */
 	private void initNotes() {
 		Document doc = parse("config/note-frequence.xml");
-		System.out.println("Root element of the doc is " + doc.getDocumentElement().getNodeName());
 
 		// Obtengo las notas a partir del documento y las almaceno en un Map (notes)
 		NodeList listOfNotes = doc.getElementsByTagName("note");
-		System.out.println("Total of notes frequence: "	+ listOfNotes.getLength());
 
 		for (int s = 0; s < listOfNotes.getLength(); s++) {
 
@@ -181,15 +338,14 @@ public class Asistent extends Applet {
 	/**
 	 * Obtiene las secuencias de notas para mostrar al usuario de un xml (sequence.xml) 
 	 */
-	public void initSequence() {
+	public void initSequences() {
 		String seqNameStr = null;
 
 		Document doc = parse("config/sequence.xml");
 		NodeList listOfSequences = doc.getElementsByTagName("sequence");
-		System.out.println("Total of sequences : " + listOfSequences.getLength());
 
 		for (int s = 0; s < listOfSequences.getLength(); s++) {
-			Collection<String> noteSecuence = new ArrayList<String>();
+			List<String> noteSecuence = new ArrayList<String>();
 			
 			Node firstSecuenceNode = listOfSequences.item(s);
 			if (firstSecuenceNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -215,8 +371,11 @@ public class Asistent extends Applet {
 				
 			}// end of if clause
 
-			listSequences.put(seqNameStr, noteSecuence);
+			sequences.put(seqNameStr, noteSecuence);
+			sequenceCombo.addItem(seqNameStr);
 		}// end of for loop with s var
+		
+		sequenceCombo.setSelectedIndex(0);
 	}
 
 	/**
@@ -251,39 +410,11 @@ public class Asistent extends Applet {
 	}
 
 	/**
-	 * Incializa la parte visual del applet
-	 */
-	public void initApplet() {
-
-		AppletListener listener = new AppletListener(this);
-		this.addMouseListener(listener);
-		this.addMouseMotionListener(listener);
-
-		TextArea infoArea = new TextArea("Notes Teacher", 8, 40, TextArea.SCROLLBARS_VERTICAL_ONLY);
-		closeButton = new Button("Cerrar");
-		closeButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				if (evt.getSource() == closeButton) {
-					infoPanel.setVisible(false);
-					repaint();
-				}
-			}
-		});
-		infoPanel = new Panel();
-		
-		infoPanel.setBackground(Color.lightGray);
-		infoPanel.add(infoArea);
-		infoPanel.setVisible(true);
-		add(infoPanel);
-
-	}
-
-	/**
 	 * Setea la secuencia determinada
 	 * @param sequenceName
 	 */
 	public void setSequence(String sequenceName) {
-		currentSecuence.addAll(listSequences.get(sequenceName));
+		currentSecuence.addAll(sequences.get(sequenceName));
 	}
 
 	/**
@@ -292,25 +423,15 @@ public class Asistent extends Applet {
 	 */
 	public void startNoteSequence(String sequence) {
 		setSequence(sequence);
-
-		captureThread = new CaptureThread();
-		captureThread.start();
+		stopped = false;
 	}
 
 	/**
 	 * Deja de escuchar las notas del musico
 	 */
-	public void stopNoteSecuence() {
-		captureThread.interrupt();
+	public void stopNoteSecuence() {		
+		stopped = true;
 		currentSecuence.clear();
-	}
-
-	/**
-	 * getter
-	 * @return
-	 */
-	public Panel getInfoPanel() {
-		return infoPanel;
 	}
 
 	/**
@@ -319,78 +440,75 @@ public class Asistent extends Applet {
 	public class CaptureThread extends Thread {
 		@Override
 		public void run() {
-			try {
+			int spectreSize = 2048 * 2 * 2 * 2 * 2;
+			int sampleSize = 2048 * 2 * 2;
+			double divi = 4 * 2 * (4096 / 4000);
+			byte data[] = new byte[spectreSize];
+			targetDataLine.start();
+			double[] ar = new double[spectreSize];
+			double[] ai = new double[spectreSize];
 
-				int spectreSize = 2048 * 2 * 2 * 2 * 2;
-				int sampleSize = 2048 * 2 * 2;
-				double divi = 4 * 2 * (4096 / 4000);
-				byte data[] = new byte[spectreSize];
-				targetDataLine.start();
-				double[] ar = new double[spectreSize];
-				double[] ai = new double[spectreSize];
+			Iterator<String> it = currentSecuence.iterator();
+			selectNote(it.next());
 
-				Iterator<String> it = currentSecuence.iterator();
-				selectNote(it.next());
-
-				// Leo la entrada de sonido a un array
-				while (targetDataLine.read(data, 0, sampleSize) > 0) {
-					try {
-						// 
-						for (int i = 0; i < sampleSize; i++) {
-							ar[i] = data[i];
-							ai[i] = 0.0;
+			// Leo la entrada de sonido a un array
+			while (targetDataLine.read(data, 0, sampleSize) > 0) {
+				if(!stopped) {
+					// 
+					for (int i = 0; i < sampleSize; i++) {
+						ar[i] = data[i];
+						ai[i] = 0.0;
+					}
+					// Completo el espectro con ceros
+					for (int i = sampleSize; i < spectreSize; i++) {
+						ar[i] = 0.0;
+						ai[i] = 0.0;
+					}
+					// Aplico la transformada rápida de Fourier
+					computeFFT(1, spectreSize, ar, ai);
+	
+					// Determino la amplitud de la componente principal
+					double maxAmpl = 0;
+					double maxIndex = 0;
+					for (int i = (int) (freqMin * divi); i < (freqMax * divi); i++) {
+						if (Math.abs(ai[i]) > maxAmpl) {
+							maxAmpl = Math.abs(ai[i]);
+							maxIndex = i;
 						}
-						// Completo el espectro con ceros
-						for (int i = sampleSize; i < spectreSize; i++) {
-							ar[i] = 0.0;
-							ai[i] = 0.0;
-						}
-						// Aplico la transformada rápida de Fourier
-						computeFFT(1, spectreSize, ar, ai);
-
-						// Determino la amplitud de la componente principal
-						double maxAmpl = 0;
-						double maxIndex = 0;
-						for (int i = (int) (freqMin * divi); i < (freqMax * divi); i++) {
-							if (Math.abs(ai[i]) > maxAmpl) {
-								maxAmpl = Math.abs(ai[i]);
-								maxIndex = i;
-							}
-						}
-
-						double frecNote = 0;
-						double currentFrec = 0;
-						// Supere cierto umbral de volumen
-						if (maxAmpl > 0.01) {
-							System.out.println("frecuencia: " + maxIndex / divi);
-
-							currentFrec = maxIndex / divi;
-							frecNote = notes.get(currentNote);
-
-							// Si es la nota correcta paso a la siguiente
-							if (isTheNote(frecNote, currentFrec)) {
-								System.out.println("nodo completo!");
-								if (it.hasNext()) {
-									selectNote(it.next());
-								} else {
-									System.out.println("Secuencia Completada!");
-									return;
-								}
-							} else {
-								System.out.println("Frecuencia nota: " + frecNote + " | Actual: " + currentFrec);
-							}
+					}
+	
+					double frecNote = 0;
+					double currentFrec = 0;
+					// Supere cierto umbral de volumen
+					if (maxAmpl > 0.01) {
+						currentFrec = maxIndex / divi;
+						readNoteFrecLabel.setText(""+currentFrec);
+						frecNote = notes.get(currentNote);
+	
+						// Si es la nota correcta paso a la siguiente
+						if (isTheNote(frecNote, currentFrec)) {
+							readNoteFrecLabel.setForeground(Color.GREEN);
 							
+							if (it.hasNext()) {
+								selectNote(it.next());
+							} else {
+								stopListening();
+								return;
+							}
+						} else {
+							readNoteFrecLabel.setForeground(Color.RED);
 						}
-
-					} catch (Exception e2) {
-						System.out.println(e2);
+						
 					}
 					targetDataLine.flush();
+				} else {
+					return;	
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
-				System.exit(0);
 			}
 		}
+	}
+	
+	public static void main(String[] args) {
+		new Asistent();		
 	}
 }
