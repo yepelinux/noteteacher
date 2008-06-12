@@ -1,0 +1,50 @@
+<html xmlns:wicket="http://wicket.sourceforge.net/">
+<head>
+</head>
+
+<body>
+<wicket:extend>
+	
+	<h2>Incription for student: <span wicket:id="studentName">[student name]</span></h2>
+	
+	<div wicket:id="feedback"/>
+	
+	<form wicket:id="form">
+	
+	<fieldset>
+	
+		<label for="course">course</label><select wicket:id="course" id="course"/><br/>
+	
+		<label for="shift">shift</label><select wicket:id="shift" id="shift"/><br/>
+	
+	</fieldset>
+	
+	<div class="buttonPanel"><button type = "submit">Submit</button></div>
+	
+	</form>
+	
+	<table>
+	
+		<tr>
+			<th>Course</th>
+			
+			<th>Shift</th>
+
+			<th>Actions</th>
+	
+		</tr>
+		
+		<tr wicket:id="table">
+			
+			<td><span wicket:id="course">[course]</span></td>
+		
+			<td><span wicket:id="shift">[shift]</span></td>
+		
+			<td><span wicket:id="action">[action]</span></td>
+	
+		</tr>
+	
+	</table>
+</wicket:extend>
+</body>
+</html>
