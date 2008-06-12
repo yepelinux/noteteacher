@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app
+      PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+      "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+    <display-name>Example</display-name>
+
+	<context-param>
+	  <param-name>configuration</param-name>
+	  <param-value>development</param-value>
+	</context-param>
+ 
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+ 			classpath:spring/applicationcontext.xml, 
+			classpath:spring/applicationcontext-repository.xml,
+			classpath:spring/applicationcontext-presenter.xml,
+			classpath:spring/wicket.xml
+		</param-value>
+	</context-param>
+	
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!--servlet>
+		<servlet-name>ExampleApplication</servlet-name>
+		<servlet-class>wicket.protocol.http.WicketServlet</servlet-class>
+		<init-param>
+			<param-name>applicationFactoryClassName</param-name>
+			<param-value>wicket.spring.SpringWebApplicationFactory</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet-->
+
+	<servlet>
+		<servlet-name>ExampleApplication</servlet-name>
+		<servlet-class>wicket.protocol.http.WicketServlet</servlet-class>
+		<init-param>
+		  	<param-name>applicationClassName</param-name>
+		  	<param-value>com.teracode.example.web.ExampleApplication</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+
+	<servlet-mapping>
+		<servlet-name>ExampleApplication</servlet-name>
+		<url-pattern>/app/*</url-pattern>
+	</servlet-mapping>
+</web-app>

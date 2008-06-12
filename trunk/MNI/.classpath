@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="java/main/web"/>
+	<classpathentry kind="src" path="java/test/web"/>
+	<classpathentry kind="src" path="java/test/core"/>
+	<classpathentry kind="src" path="etc/config"/>
+	<classpathentry kind="src" path="java/main/core"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/asm-1.5.3.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/cglib-nodep-2.1_3.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/commons-logging-1.0.4.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/log4j-1.2.13.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/portlet-api-1.0.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/servlet-api-2.3.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/spring-2.0.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/wicket-1.2.4.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/wicket-spring-1.2.4.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/wicket-spring-annot-1.2.4.jar"/>
+	<classpathentry kind="lib" path="lib/junit-4.1.jar"/>
+	<classpathentry kind="lib" path="lib/org.mortbay.jetty-4.2.24.jar"/>
+	<classpathentry kind="lib" path="lib/servlet-api-2.3.jar"/>
+	<classpathentry kind="lib" path="lib/jasper-compiler-4.1.30.jar"/>
+	<classpathentry kind="lib" path="lib/jasper-runtime-4.1.30.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/wicket-extensions-1.2.4.jar"/>
+	<classpathentry kind="lib" path="lib/testng-5.3-jdk15.jar"/>
+	<classpathentry kind="lib" path="D:/Documentos de Administrador  ES ESTE ESTE/Leandro/archivos/U.T.N/5ª año/Modelos de Negocios en Internet/para java/flickrapi-1.0.zip"/>
+	<classpathentry kind="lib" path="D:/Documentos de Administrador  ES ESTE ESTE/Leandro/archivos/U.T.N/5ª año/Modelos de Negocios en Internet/para java/flickrapi-1.0/flickrapi-1.0.jar" sourcepath="/flicker"/>
+	<classpathentry kind="output" path="web/WEB-INF/classes"/>
+</classpath>
