@@ -12,7 +12,7 @@ import com.aetrion.flickr.photos.SearchParameters;
 
 import config.ConfigFlickr;
 
-public class BuscadorPorTag implements BuscadorImagenes {
+public class BuscadorPorTag implements IBuscadorImagenes {
 
 	Flickr flickr = new Flickr(ConfigFlickr.API_KEY);
 

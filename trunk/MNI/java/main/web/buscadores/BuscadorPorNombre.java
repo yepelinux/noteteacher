@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * @author <a href="mailto:jesse@swank.ca">Jesse Wilson</a>
  */
-public class BuscadorPorNombre implements BuscadorImagenes{
+public class BuscadorPorNombre implements IBuscadorImagenes{
     
 	Flickr flickr = new Flickr(ConfigFlickr.API_KEY);
     
@@ -60,7 +60,7 @@ public class BuscadorPorNombre implements BuscadorImagenes{
 	@SuppressWarnings("unchecked")
 	public static void main(String[] Arg){
 	
-		BuscadorImagenes buscadorPorNombre = new BuscadorPorNombre();
+		IBuscadorImagenes buscadorPorNombre = new BuscadorPorNombre();
 		
 	/**
 	 * Busca las primeras 10 imagenes de la primera pagina del usuario "pepe"
