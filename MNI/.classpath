@@ -23,7 +23,6 @@
 	<classpathentry kind="lib" path="lib/jasper-runtime-4.1.30.jar"/>
 	<classpathentry kind="lib" path="web/WEB-INF/lib/wicket-extensions-1.2.4.jar"/>
 	<classpathentry kind="lib" path="lib/testng-5.3-jdk15.jar"/>
-	<classpathentry kind="lib" path="D:/Documentos de Administrador  ES ESTE ESTE/Leandro/archivos/U.T.N/5ª año/Modelos de Negocios en Internet/para java/flickrapi-1.0.zip"/>
-	<classpathentry kind="lib" path="D:/Documentos de Administrador  ES ESTE ESTE/Leandro/archivos/U.T.N/5ª año/Modelos de Negocios en Internet/para java/flickrapi-1.0/flickrapi-1.0.jar" sourcepath="/flicker"/>
+	<classpathentry kind="lib" path="lib/flickrapi-1.0.jar"/>
 	<classpathentry kind="output" path="web/WEB-INF/classes"/>
 </classpath>
