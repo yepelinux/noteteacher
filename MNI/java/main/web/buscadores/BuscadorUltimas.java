@@ -15,7 +15,7 @@ import com.aetrion.flickr.photos.SearchParameters;
 
 import config.ConfigFlickr;
 
-public class BuscadorUltimas implements BuscadorImagenes{
+public class BuscadorUltimas implements IBuscadorImagenes{
 
 	Flickr flickr = new Flickr(ConfigFlickr.API_KEY);
 

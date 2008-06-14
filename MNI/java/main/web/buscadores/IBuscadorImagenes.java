@@ -9,7 +9,7 @@ import com.aetrion.flickr.FlickrException;
 import com.aetrion.flickr.photos.Photo;
 import com.aetrion.flickr.photos.PhotoList;
 
-public interface BuscadorImagenes {
+public interface IBuscadorImagenes {
 	
 	public PhotoList getListaFotos(String modoBusqueda,int pagina ,int imagenesPorPagina)throws IOException, SAXException, FlickrException;
 	
