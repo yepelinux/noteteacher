@@ -65,10 +65,10 @@ public class BuscadorPorNombre implements BuscadorImagenes{
 	/**
 	 * Busca las primeras 10 imagenes de la primera pagina del usuario "pepe"
 	 */
-	PhotoList listaFotos;
+	
 	try {
 		
-		listaFotos = buscadorPorNombre.getListaFotos("pepe", 1, 10);
+		PhotoList listaFotos = buscadorPorNombre.getListaFotos("pepe", 1, 10);
 		Iterator<Photo> lista = listaFotos.iterator();
 		while (lista.hasNext()) {
 			Photo photo = (Photo) lista.next();

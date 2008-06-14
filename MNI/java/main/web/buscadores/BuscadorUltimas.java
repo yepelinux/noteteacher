@@ -1,6 +1,7 @@
 package buscadores;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 
 import org.xml.sax.SAXException;
@@ -17,26 +18,12 @@ import config.ConfigFlickr;
 public class BuscadorUltimas implements BuscadorImagenes{
 
 	Flickr flickr = new Flickr(ConfigFlickr.API_KEY);
-	private int IMAGENES_POR_BUSQUEDA;
-	private int pagina = 0;
-	
-	public BuscadorUltimas(int imagenes_por_busqueda) {
-	
-		IMAGENES_POR_BUSQUEDA = imagenes_por_busqueda;
-	}
-	
 
-	public List<Photo> getListaFotos(String modoBusqueda) throws IOException, SAXException, FlickrException {
+	public PhotoList getListaFotos(String arg0, int pagina, int imagenesPorPagina) throws IOException, SAXException, FlickrException {
 
-		
-
-		
-        // 
-        SearchParameters busquedaPorTag = new SearchParameters();
-        busquedaPorTag.setTagMode("nirvana");
-        PhotosInterface photosInterface = flickr.getPhotosInterface();
+		PhotosInterface photosInterface = flickr.getPhotosInterface();
         
-        PhotoList resultado = photosInterface.getRecent(1, 5);
+        PhotoList resultado = photosInterface.getRecent(imagenesPorPagina, pagina);
         
 		return resultado;
 	}
@@ -50,24 +37,25 @@ public class BuscadorUltimas implements BuscadorImagenes{
 	 * @throws SAXException 
 	 * @throws IOException 
 	 */
-	public static void main(String[] Arg) throws IOException, SAXException, FlickrException {
+	@SuppressWarnings("unchecked")
+	public static void main(String[] Arg){
 		
-		
-		BuscadorUltimas buscadorPorTag = new BuscadorUltimas(10);
+		BuscadorUltimas buscadorPorTag = new BuscadorUltimas();
 	
-		List<Photo> listaFotos = buscadorPorTag.getListaFotos("pepe");
-	
-		for(Photo foto : listaFotos){
+		try {
 			
-			System.out.println(foto.getId());
-		}
-		
-
-		
-		
+			PhotoList listaFotos = buscadorPorTag.getListaFotos(null, 10, 10);
+			Iterator<Photo> lista = listaFotos.iterator();
+			while (lista.hasNext()) {
+				Photo photo = (Photo) lista.next();
+				System.out.println(photo.getLargeUrl());
+			}
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (SAXException e) {
+				e.printStackTrace();
+			} catch (FlickrException e) {
+				e.printStackTrace();
+			}
+		}		
 	}
-	
-	
-	
-
-}
