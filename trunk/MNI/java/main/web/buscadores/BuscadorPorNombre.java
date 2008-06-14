@@ -34,9 +34,6 @@ public class BuscadorPorNombre implements BuscadorImagenes{
 	
     public PhotoList getListaFotos(String nombreUsuario, int pagina, int imagenesPorPagina) throws IOException, SAXException, FlickrException{
     	
-    
-		
-		
 		User user = flickr.getPeopleInterface().findByUsername(nombreUsuario);
 		SearchParameters usernameSearch = new SearchParameters();
 		usernameSearch.setUserId(user.getId());
