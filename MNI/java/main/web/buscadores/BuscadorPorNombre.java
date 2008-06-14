@@ -74,12 +74,12 @@ public class BuscadorPorNombre implements BuscadorImagenes{
 			Photo photo = (Photo) lista.next();
 			System.out.println(photo.getLargeUrl());
 		}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (SAXException e) {
-			e.printStackTrace();
-		} catch (FlickrException e) {
-			e.printStackTrace();
+		} catch (IOException e) {			
+			System.out.println(e.getMessage());
+		} catch (SAXException e) {			
+			System.out.println(e.getMessage());
+		} catch (FlickrException e) {			
+			System.out.println(e.getMessage());
 		}
 	}
 }
