@@ -1,18 +1,31 @@
 package generadoresCodigo;
 
+import java.io.IOException;
+
+import org.xml.sax.SAXException;
+
+import buscadores.BuscadorPorTag;
+
+import com.aetrion.flickr.FlickrException;
+import com.aetrion.flickr.photos.Photo;
+import com.aetrion.flickr.photos.PhotoList;
+
 import config.ConfigApp;
 
 public class GeneradorCodigoImagen implements IGeneradorCodigo{
 	
 	/**
-	 *  GENERO EL CODIGO DE UNA IMAGEN PARA USAR EN UN FORO
-	 *  
-	 * @param ImagenUrl
+	 *  GENERO EL CODIGO DE UNA IMAGEN PARA USAR COMO AVATAR EN UN FORO
+	 * 
+	 * @param foto
+	 * @param alto
+	 * @param ancho
 	 * @return
 	 */
-	public String getCodigoImagen(String ImagenUrl){
+	public String getCodigoImagen(Photo foto, int alto, int ancho){
 		
-		return "[URL=http://" + ConfigApp.URL_APP + "][IMG]" + ImagenUrl + "[/IMG][/URL]";
+		return "<a href=\"http://" + ConfigApp.URL_APP + "\"><img height=\"" + alto + "\" width=\""+ ancho + "\" src=\"" + foto.getSmallUrl() + "\" Alt=\"MegaPhotos\"></a>";
+		
 	}
 	
 	/**
@@ -24,9 +37,40 @@ public class GeneradorCodigoImagen implements IGeneradorCodigo{
 		
 		GeneradorCodigoImagen generadorCodigoImagen = new GeneradorCodigoImagen();
 		
-		String codigo = generadorCodigoImagen.getCodigoImagen("http://farm2.static.flickr.com/1362/535093788_e18bc48644_b.jpg");
+		/**
+		 * testeo el generador de paginas buscando imagenes.
+		 */
 		
-		System.out.println(codigo);
+		try {
+			
+			/**
+			 *  Tomo la primer imagen de una lista de fotos, y pruebo la generacion 
+			 *  del codigo de esa imagen
+			 */
+			BuscadorPorTag buscadorPorTag = new BuscadorPorTag();
+			PhotoList listaFotos = buscadorPorTag.getListaFotos("silverchair", 1, 9);
+			
+			Photo foto = (Photo)listaFotos.get(1);
+			
+			String codigo = generadorCodigoImagen.getCodigoImagen(foto, 200, 150);			
+			System.out.println(codigo);
+			
+			
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FlickrException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
 		
 		
 	}
