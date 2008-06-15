@@ -153,7 +153,7 @@ public class GeneradorCodigoPagina implements IGeneradorCodigo{
 			 * genero la pagina html
 			 */			
 			GeneradorCodigoPagina generadorCodigoPagina = new GeneradorCodigoPagina();
-			String codigo = generadorCodigoPagina.getCodigoPagina(listaFotos,"mi pagina de fotos locas");
+			String codigo = generadorCodigoPagina.getCodigoPagina(listaFotos,"Mi pagina de fotos locas");
 			System.out.println(codigo);
 			
 			
@@ -164,11 +164,6 @@ public class GeneradorCodigoPagina implements IGeneradorCodigo{
 		} catch (FlickrException e) {
 			e.printStackTrace();
 		}
-		
-		
-		
-		
-		
 	}
 
 }
