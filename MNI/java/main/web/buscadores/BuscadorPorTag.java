@@ -58,11 +58,12 @@ public class BuscadorPorTag implements IBuscadorImagenes {
 		 */
 		PhotoList listaFotos;
 		try {
-			listaFotos = buscadorPorTag.getListaFotos("nirvana", 1, 10);
+			listaFotos = buscadorPorTag.getListaFotos("silverchair", 1, 10);
 			Iterator<Photo> lista = listaFotos.iterator();
 			while (lista.hasNext()) {
 				Photo photo = (Photo) lista.next();
-				System.out.println(photo.getLargeUrl());
+				System.out.println(photo.getSmallUrl());
+				System.out.println(photo.isPublicFlag());
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
