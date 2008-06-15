@@ -1,0 +1,47 @@
+<html xmlns:wicket="http://wicket.sourceforge.net/">
+<head>
+</head>
+
+<body>
+<wicket:extend>
+
+<!--	<div wicket:id="feedback"></div>-->
+	<form wicket:id="pageForm">
+		<div class="header" >
+			<ul class="menu">
+				<li><a wicket:id="download">Download Imagen</a></li>
+				<li><a wicket:id="generateCodeImage">Generar Código de Imagen</a></li>
+				<li><a wicket:id="generateCodePage">Generar Código de Pagina</a></li>
+				<li><a wicket:id="searchImage">Buscar Imagen</a></li>
+				<li><a wicket:id="clear">Clear</a></li>
+			</ul>		
+		</div>
+		 
+	
+		<div  wicket:id="mainContainer" >
+			<div wicket:id="panelContainer">
+				<div class="header">
+				<ul class="menu" >
+					<li class="li"><a wicket:id="tag">Buscar Por Tag</a></li>
+					<li class="li"><a wicket:id="flickrId">Buscar Por Flickr Id</a></li>
+					<li class="li"><a wicket:id="last">Ultimas</a></li>
+				</ul>
+				</div>
+			</div>		
+		</div>
+
+
+		<div class="operation">Tipo de Operación: <spam wicket:id="operationType"></spam></div>
+		 
+		<div wicket:id="searchContainer">
+			 <div wicket:id="searchMsg" class="search">Tipo de Busqueda: 
+			 	<spam wicket:id="searchType"></spam>
+			 </div>
+		</div>	
+		
+		<div class="buttonPanel"><button type="submit">Submit</button></div>
+		
+	</form>
+</wicket:extend>
+</body>
+</html>

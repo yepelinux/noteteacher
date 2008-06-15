@@ -18,7 +18,7 @@ import wicket.model.AbstractReadOnlyModel;
 import wicket.model.PropertyModel;
 import wicket.spring.injection.annot.SpringBean;
 
-import buscadores.BuscarPorNombre;
+//import buscadores.BuscarPorNombre;
 
 import com.aetrion.flickr.FlickrException;
 import com.teracode.example.core.common.ObjectAlreadyExistsException;
@@ -42,7 +42,7 @@ public class CoursePage extends BasePage implements ICoursePresenterView{
 	protected String name;
 	protected String description;
 	protected Integer selectedTeacher;
-	private BuscarPorNombre buscadorPorNombre;
+//	private BuscarPorNombre buscadorPorNombre;
 	
 	public String getDescription() {
 		return description;
@@ -93,18 +93,18 @@ public class CoursePage extends BasePage implements ICoursePresenterView{
 	public CoursePage(Integer id)
 	{
 		
-		try {
-			List<String> list = buscadorPorNombre.getIdPhotos("pepe");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (FlickrException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			List<String> list = buscadorPorNombre.getIdPhotos("pepe");
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (SAXException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (FlickrException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 		
 		this.courseId = id;  

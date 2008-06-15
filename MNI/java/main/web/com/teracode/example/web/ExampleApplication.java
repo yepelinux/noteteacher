@@ -1,11 +1,10 @@
 package com.teracode.example.web;
 
+import pages.homePage.HomePage;
 import wicket.ISessionFactory;
 import wicket.Session;
 import wicket.protocol.http.WebApplication;
 import wicket.spring.injection.annot.SpringComponentInjector;
-
-import com.teracode.example.web.course.CourseList;
 
 public class ExampleApplication extends WebApplication {
 
@@ -31,7 +30,7 @@ public class ExampleApplication extends WebApplication {
 	 */
 	@SuppressWarnings("unchecked")
 	public Class getHomePage() {
-		return CourseList.class;
+		return HomePage.class;
 	}
 
 }
