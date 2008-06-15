@@ -110,6 +110,7 @@ public class GeneradorCodigoPagina implements IGeneradorCodigo{
 			contenido +=
 			
 				"				<td>" +'\n'+
+				"					<div>" + photo.getTitle() + "</div>" +'\n'+
 				"					<a href=\"http://" + ConfigApp.URL_APP + "\"><img border=\"10\" height=\"60\" width=\"60\" src=\""+ photo.getLargeUrl() +"\" Alt=\"MegaPhotos\"></a>"+'\n'+
 				"				<td>" +'\n';
 			
