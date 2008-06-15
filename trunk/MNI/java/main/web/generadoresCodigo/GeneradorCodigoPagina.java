@@ -15,12 +15,12 @@ public class GeneradorCodigoPagina implements IGeneradorCodigo{
 	 * @param ImagenUrl
 	 * @return
 	 */
-	public String getCodigoPagina(/*PhotoList listaFotos*/ String foto){
+	public String getCodigoPagina(/*PhotoList listaFotos*/ String foto,String titulo){
 		
 		//TODO: se debe usar la lista de fotos, no una foto sola
 		
 		
-		String titulo = "titulo";
+		titulo = "MegaPhotos - Usá tus fotos";
 
 //		Iterator lista = listaFotos.iterator();
 //		
@@ -30,21 +30,30 @@ public class GeneradorCodigoPagina implements IGeneradorCodigo{
 //			System.out.println(photo.getLargeUrl());
 //		}
 		
+
+		
 		String codigo = 
 			
-		"<html>" +
-			"<head>" +
-				"<title>" + titulo + "</title>" +
-			"</head>" +
-			"<body>" +
-			
-				"<a href=\"http://" + ConfigApp.URL_APP + "><img border=\"10\" height=\"60\" width=\"60\" src=\""+ foto +"\" Alt=\"MegaPhotos\"></a>"+
-
-			
-				
-			"</body>" +
-			
-			
+		"<html>" +'\n'+
+		"	<head>" +'\n'+
+		"		<title>" + titulo + "</title>" +'\n'+
+		"	</head>" +'\n'+
+		"	<body>" +'\n'+
+		"		<font size=\"7\" face=\"Impact\">" + titulo + "</font>" +'\n'+		
+		"		<table width=\"100%\">" +'\n'+
+		"			<tr>" +'\n'+
+		"				<td>" +'\n'+
+		"					<a href=\"http://" + ConfigApp.URL_APP + "\"><img border=\"10\" height=\"60\" width=\"60\" src=\""+ foto +"\" Alt=\"MegaPhotos\"></a>"+'\n'+
+		"				<td>" +'\n'+
+		"				<td>" +'\n'+
+		"					<a href=\"http://" + ConfigApp.URL_APP + "\"><img border=\"10\" height=\"60\" width=\"60\" src=\""+ foto +"\" Alt=\"MegaPhotos\"></a>"+'\n'+
+		"				<td>" +'\n'+
+		"				<td>" +'\n'+
+		"					<a href=\"http://" + ConfigApp.URL_APP + "\"><img border=\"10\" height=\"60\" width=\"60\" src=\""+ foto +"\" Alt=\"MegaPhotos\"></a>"+'\n'+
+		"				<td>" +'\n'+
+		"			<tr>" + '\n' +
+		"		</table >" +'\n'+
+		"	</body>" +'\n'+			
 		"</html>";
 		
 		return codigo;
@@ -60,7 +69,7 @@ public class GeneradorCodigoPagina implements IGeneradorCodigo{
 		
 		GeneradorCodigoPagina generadorCodigoPagina = new GeneradorCodigoPagina();
 		
-		String codigo = generadorCodigoPagina.getCodigoPagina("http://farm2.static.flickr.com/1362/535093788_e18bc48644_b.jpg");
+		String codigo = generadorCodigoPagina.getCodigoPagina("http://farm2.static.flickr.com/1362/535093788_e18bc48644_b.jpg","mi pagina de fotos");
 		
 		System.out.println(codigo);
 		
