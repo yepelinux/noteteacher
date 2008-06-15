@@ -25,8 +25,7 @@ public class GeneradorCodigoPagina implements IGeneradorCodigo{
 	 * @return
 	 */
 	public String getCodigoPagina(PhotoList listaFotos,String titulo){
-		
-		//TODO: se debe usar la lista de fotos, no una foto sola
+
 		String encabezado;
 		String cuerpo;
 		String contenido;
