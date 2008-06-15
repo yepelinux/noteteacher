@@ -93,20 +93,6 @@ public class CoursePage extends BasePage implements ICoursePresenterView{
 	public CoursePage(Integer id)
 	{
 		
-//		try {
-//			List<String> list = buscadorPorNombre.getIdPhotos("pepe");
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (SAXException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (FlickrException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
-		
 		this.courseId = id;  
 		this.coursePresenter.setView(this);
 		this.coursePresenter.init();
