@@ -4,8 +4,8 @@ body {
 }
 
 div#header {
-	background-image: url(../img/logo_head.gif);
-	background-repeat:no-repeat;
+/*	background-image: url(../img/logo_head.gif);
+	background-repeat:no-repeat;*/
     background-color: #384353;
     height: 56px;
     margin: 0;
@@ -56,9 +56,9 @@ ul#menu li {
 }
 
 div#footer {
-	background-image: url(../img/logo.jpg);
+	/*background-image: url(../img/logo.jpg);
 	background-repeat:no-repeat;
-	background-position: right;
+	background-position: right;*/
 	height: 63px;
 }
 
@@ -130,7 +130,7 @@ fieldset {
 }
 
 form div {
-	margin: 10px;
+	margin-top: 10px;
 }
 
 form div label {
@@ -144,3 +144,49 @@ form input, select {
 	background-color: #d7dbe1;
     border-bottom-style: groove;
 }
+
+
+
+/*********************************************************************/
+ul.menu {
+	float:inherit;
+	margin: 0;
+	margin-right:10px;
+	list-style-type: none;
+}
+
+ul.menu a {
+	text-decoration:none;
+	font-size: 0.7em;
+	font-weight: bold;
+	color: #DDDDDD;
+}
+
+ul.menu li {
+	display: block;
+	float:left;
+	height:51px;
+	width:97px;
+	text-align:center;
+	/*padding-top: 22px;*/
+	padding-right: 6px;
+	background-image: url(../img/btn_head.gif);
+	background-repeat:no-repeat;
+}
+
+ul.menu li.li {
+	float: left;	
+}
+		
+
+div.header {
+/*	background-image: url(../img/logo_head.gif);
+	background-repeat:no-repeat;*/
+    background-color: #384353;
+    height: 56px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #384353;
+}
+
+
