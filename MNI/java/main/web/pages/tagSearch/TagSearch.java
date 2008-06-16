@@ -30,13 +30,17 @@ import config.ConfigApp;
 public class TagSearch extends BasePage {
 	
 	private String toSearch = "";
+	private String operation = ""; 
+	
 	private IBuscadorImagenes buscadotPorTag = new BuscadorPorTag();
-//	private static int rowPerPage = 25;
 	private List<Object> photos = new ArrayList<Object>();
 	
 	private List<String> selected = new ArrayList<String>();
 
 	public TagSearch(Long operationType) {
+		
+		setOperation(getStringOperation(operationType));
+		add(new Label("operationType", new PropertyModel(TagSearch.this, "operation")));
 		
 		add(new SearchForm("searchForm"));
 		
@@ -108,7 +112,6 @@ public class TagSearch extends BasePage {
 				StaticImage image = new StaticImage("image", new Model(url));
 				item.add(image);
 				
-//				Object modelObject = item.getModelObject();
 				CheckBox check = new CheckBox("check");
 				check.add(new AjaxFormComponentUpdatingBehavior("onclick") {				
 					@Override
@@ -149,15 +152,10 @@ public class TagSearch extends BasePage {
 	public List<String> getSelected() {return selected;}
 
 	public void setSelected(List<String> selected) {this.selected = selected;}
-	
-//	private void mostrarSelected() {
-//		
-//		for(String id : getSelected()){
-//			System.err.println("id " + id);
-//		}
-//		
-//	}
 
+	public String getOperation() {return operation;}
+
+	public void setOperation(String operation) {this.operation = operation;}
 }
 
 
