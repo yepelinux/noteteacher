@@ -1,8 +1,11 @@
 package buscadores;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.xml.sax.SAXException;
 
@@ -11,10 +14,10 @@ import com.aetrion.flickr.FlickrException;
 import com.aetrion.flickr.photos.Photo;
 import com.aetrion.flickr.photos.PhotoList;
 import com.aetrion.flickr.photos.PhotosInterface;
-import com.aetrion.flickr.photos.SearchParameters;
 
 import config.ConfigFlickr;
 
+@SuppressWarnings("serial")
 public class BuscadorUltimas implements IBuscadorImagenes{
 
 	Flickr flickr = new Flickr(ConfigFlickr.API_KEY);
@@ -57,5 +60,26 @@ public class BuscadorUltimas implements IBuscadorImagenes{
 			} catch (FlickrException e) {
 				e.printStackTrace();
 			}
+		}
+
+
+	public List<Object> getListaFotosMap(String ultimas, int pagina, int imagenesPorPagina) 
+			throws IOException,	SAXException, FlickrException {
+		PhotoList listaFotos = this.getListaFotos(ultimas, 1, imagenesPorPagina);
+		List<Object> result = new ArrayList<Object >();
+		
+		
+		Iterator<Photo> listaIterator = listaFotos.iterator();
+		while (listaIterator.hasNext()) {
+			Photo photo = (Photo) listaIterator.next();
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("id", photo.getId());
+			map.put("url", photo.getSmallUrl());
+			map.put("description", photo.getDescription());
+			result.add(map);
+		}
+		return result;
+
 		}		
 	}

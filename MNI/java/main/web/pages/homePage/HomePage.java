@@ -1,5 +1,8 @@
 package pages.homePage;
 
+import pages.idSearch.LastSearch;
+import pages.lastSearch.IdSearch;
+import pages.tagSearch.TagSearch;
 import wicket.ajax.AjaxRequestTarget;
 import wicket.ajax.markup.html.AjaxLink;
 import wicket.markup.html.WebMarkupContainer;
@@ -202,7 +205,20 @@ public class HomePage extends BasePage {
 		
 		@Override
 		protected void onSubmit() {
-			setResponsePage(new HomePage());
+			
+			if(!getOperationType().equals(HomePage.none)){
+			
+				if(getSearchType().equals(HomePage.searchTag)){
+					setResponsePage(new TagSearch(getOperationType()));
+					
+				} else if(getSearchType().equals(HomePage.searchId)) {
+					setResponsePage(new IdSearch(getOperationType()));
+					
+				} else if(getSearchType().equals(HomePage.searchLast)) {
+					setResponsePage(new LastSearch(getOperationType()));				
+				}
+			}
+				
 		}
 	}
 
