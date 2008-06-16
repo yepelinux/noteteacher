@@ -1,13 +1,16 @@
 package com.teracode.example.web;
 
+import java.io.Serializable;
+
 import com.teracode.example.web.course.CourseList;
 import com.teracode.example.web.student.StudentList;
 import com.teracode.example.web.teacher.TeacherList;
+import com.thoughtworks.qdox.Searcher;
 
 import pages.homePage.HomePage;
 import wicket.markup.html.link.PageLink;
 
-public abstract class BasePage extends ExamplePage {
+public abstract class BasePage extends ExamplePage implements Serializable{
 
 	public BasePage()
 	{

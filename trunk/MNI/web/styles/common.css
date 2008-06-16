@@ -19,7 +19,6 @@ div#body {
 	background-image: url(../img/drop.jpg);
 	background-repeat:no-repeat;
 	background-position: 3% 90%;
-	
 }
 
 div#panel {
@@ -70,7 +69,8 @@ h1 {
 }
 
 table { 
-	margin: 5%;
+	margin-top: 5%;
+	margin-bottom: 5%;
 	border: 0px;
 	border-collapse: collapse;
 	width: 90%;
@@ -89,7 +89,7 @@ td {
 	font-size: 10pt;
 	font-weight: normal;
 	color : #FFFFFF;
-	text-align: center;
+	/*text-align: center;*/
 	background-color: #889ab3;
 	border-top: 2px solid #667486;
 	border-left: 0;
@@ -189,4 +189,16 @@ div.header {
     border: 1px solid #384353;
 }
 
+input.text3, select.text3, div.text3 input, textarea.text3 {
+	width: 300px;
+/*	border:1px solid #9FDCEE;
+	color:#555555;*/
+}
+
+table.searchTable {
+	border:0px none;
+	border-collapse:collapse;
+	margin: none !important;
+	width:auto !important;
+}
 
