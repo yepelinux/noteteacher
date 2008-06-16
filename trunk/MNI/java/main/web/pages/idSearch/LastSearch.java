@@ -12,7 +12,6 @@ import wicket.markup.html.WebMarkupContainer;
 import wicket.markup.html.basic.Label;
 import wicket.markup.html.form.CheckBox;
 import wicket.markup.html.form.Form;
-import wicket.markup.html.form.TextArea;
 import wicket.markup.html.list.ListItem;
 import wicket.markup.html.list.ListView;
 import wicket.model.CompoundPropertyModel;
@@ -30,11 +29,16 @@ import config.ConfigApp;
 public class LastSearch extends BasePage {
 	
 	private String toSearch = "";
+	private String operation = "";
+	
 	private IBuscadorImagenes buscador = new BuscadorUltimas();
 	private List<Object> photos = new ArrayList<Object>();
 	private List<String> selected = new ArrayList<String>();
 
 	public LastSearch(Long operationType) {
+
+		setOperation(getStringOperation(operationType));
+		add(new Label("operationType", new PropertyModel(LastSearch.this, "operation")));
 		
 		add(new SearchForm("searchForm"));
 		
@@ -52,11 +56,6 @@ public class LastSearch extends BasePage {
 
 		public SearchForm(String id) {
 			super(id);
-			
-//			final TextArea toSearch = new TextArea("toSearch", new PropertyModel(LastSearch.this,"toSearch"));
-//			toSearch.setOutputMarkupId(true);
-//			add(toSearch);
-			
 			
 			AjaxSubmitLink searchButton = new AjaxSubmitLink("searchButton", SearchForm.this){
 
@@ -147,15 +146,10 @@ public class LastSearch extends BasePage {
 	public List<String> getSelected() {return selected;}
 
 	public void setSelected(List<String> selected) {this.selected = selected;}
-	
-//	private void mostrarSelected() {
-//		
-//		for(String id : getSelected()){
-//			System.err.println("id " + id);
-//		}
-//		
-//	}
 
+	public String getOperation() {return operation;}
+
+	public void setOperation(String operation) {this.operation = operation;}
 }
 
 

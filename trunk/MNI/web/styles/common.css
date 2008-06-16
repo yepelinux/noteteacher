@@ -67,6 +67,13 @@ h1 {
 	font-weight: bold;
 	color : #e0e4e8;
 }
+h2 {
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 15pt;
+	font-weight: bold;
+	color : #e0e4e8;
+}
+
 
 table { 
 	margin-top: 5%;
@@ -200,5 +207,13 @@ table.searchTable {
 	border-collapse:collapse;
 	margin: none !important;
 	width:auto !important;
+}
+
+div.homeText{
+	color:#FFFFFF;
+	cursor:pointer;
+	font-family:Verdana,Arial,sans-serif;
+	font-size:0.7em;
+	font-weight:bold;
 }
 

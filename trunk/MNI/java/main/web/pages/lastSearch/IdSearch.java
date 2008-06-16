@@ -30,13 +30,18 @@ import config.ConfigApp;
 public class IdSearch extends BasePage {
 	
 	private String toSearch = "";
+	private String operation = ""; 
+	
 	private IBuscadorImagenes buscador = new BuscadorPorNombre();
-//	private static int rowPerPage = 25;
 	private List<Object> photos = new ArrayList<Object>();
 	
 	private List<String> selected = new ArrayList<String>();
 
 	public IdSearch(Long operationType) {
+		
+		setOperation(getStringOperation(operationType));
+		add(new Label("operationType", new PropertyModel(IdSearch.this, "operation")));
+
 		
 		add(new SearchForm("searchForm"));
 		
@@ -149,15 +154,10 @@ public class IdSearch extends BasePage {
 	public List<String> getSelected() {return selected;}
 
 	public void setSelected(List<String> selected) {this.selected = selected;}
-	
-//	private void mostrarSelected() {
-//		
-//		for(String id : getSelected()){
-//			System.err.println("id " + id);
-//		}
-//		
-//	}
 
+	public String getOperation() {return operation;}
+
+	public void setOperation(String operation) {this.operation = operation;}
 }
 
 
