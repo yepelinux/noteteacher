@@ -244,20 +244,24 @@ public class ExpertAsistent extends JFrame {
 		
 		grafSonido.reset();
 		grafSonido.Datos(X, Y, 400, 400, "Grafica de la onda", "Tiempo", "Onda");
-		grafSonido.repaint();
-
+		
 	}
 	
 	private void fillGraficacionFourier(double[] Y) {
 		double[] X = new double[Y.length];
-		for (int i = 1; i < Y.length; i++) {
+		for (int i = 1; i < Y.length/2; i++) { // /2 para obviar la parte simétrica
 			X[i] = i;
 		}
 		
 		grafFourier.reset();
 		grafFourier.Datos(X, Y, 400, 400, "Grafica de las Frecuencias", "Frecuencia", "Amplitud");
-		grafFourier.repaint();
+		
 
+	}
+	
+	private void repaintGraficos() {
+		grafSonido.repaint();
+		grafFourier.repaint();
 	}
 
 	private void startListening() {
@@ -541,6 +545,8 @@ public class ExpertAsistent extends JFrame {
 	
 					//grafico
 					fillGraficacionFourier(ai);
+					
+					repaintGraficos();
 					
 					// Determino la amplitud de la componente principal
 					double maxAmpl = 0;
