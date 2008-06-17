@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 
 import pages.components.StaticImage;
+import pages.homePage.HomePage;
+import pages.imageGenerator.ImageCodeGenerator;
+import pages.pageGenerator.PageCodeGenerator;
 import wicket.ajax.AjaxRequestTarget;
 import wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import wicket.ajax.markup.html.form.AjaxSubmitLink;
@@ -29,18 +32,35 @@ import config.ConfigApp;
 @SuppressWarnings("serial")
 public class TagSearch extends BasePage {
 	
+	private IBuscadorImagenes buscadotPorTag = new BuscadorPorTag();
+	
 	private String toSearch = "";
 	private String operation = ""; 
-	
-	private IBuscadorImagenes buscadotPorTag = new BuscadorPorTag();
+	private Long operationType;
+	private String errorMesage="";
+
 	private List<Object> photos = new ArrayList<Object>();
-	
 	private List<String> selected = new ArrayList<String>();
 
 	public TagSearch(Long operationType) {
 		
+		this.operationType = operationType;
+		
 		setOperation(getStringOperation(operationType));
 		add(new Label("operationType", new PropertyModel(TagSearch.this, "operation")));
+		
+		WebMarkupContainer errorContainer = new WebMarkupContainer("errorContainer");
+		errorContainer.setOutputMarkupId(true);
+		add(errorContainer);
+		
+		Label error = new Label("error", new PropertyModel(TagSearch.this,"errorMesage")){
+			@Override
+			public boolean isVisible() {
+				return !getErrorMesage().equals("");
+			}
+		};
+		error.setOutputMarkupId(true);
+		errorContainer.add(error);
 		
 		add(new SearchForm("searchForm"));
 		
@@ -52,6 +72,14 @@ public class TagSearch extends BasePage {
 		listView.setOutputMarkupId(true);
 		tableContainer.add(listView);
 		
+		WebMarkupContainer checkLabel = new WebMarkupContainer("checkLabel"){
+			@Override
+			public boolean isVisible() {
+				return !getOperationType().equals(HomePage.searchImage);					
+			}
+		};
+		checkLabel.setOutputMarkupId(true);
+		add(checkLabel);
 	}
 	
 	private class SearchForm extends Form{
@@ -75,11 +103,61 @@ public class TagSearch extends BasePage {
 					} catch (Exception e) {	}
 					
 					setPhotos(list);
-					
+					setErrorMesage("");
+					getSelected().clear();
+
+					target.addComponent(getPage().get("errorContainer"));
 					target.addComponent(getPage().get("tableContainer"));
 				}
 			};
 			add(searchButton);
+			
+			AjaxSubmitLink submitButton = new AjaxSubmitLink("submitButton", SearchForm.this){
+				@SuppressWarnings("unchecked")
+				@Override
+				protected void onSubmit(AjaxRequestTarget target, Form form) {
+
+					List<HashMap<String, Object>> selectedPhotos = new ArrayList<HashMap<String,Object>>();
+					
+					for(Object photo : getPhotos()){
+						
+						HashMap<String, Object> map = (HashMap<String, Object>)photo;
+						String id = (String)map.get("id");
+					 	if(getSelected().contains(id)){
+							selectedPhotos.add(map);
+						}
+					}
+					if(getOperationType().equals(HomePage.generatePC)){
+						setResponsePage(new PageCodeGenerator(selectedPhotos));
+						
+					} else if(getOperationType().equals(HomePage.generateIC)){
+						
+						if(getSelected().size()!=1){
+							
+							setErrorMesage("Debe seleccionar una fotografia");
+							target.addComponent(getPage().get("errorContainer"));
+							
+						} else if(getSelected().size()==1){
+							
+							setResponsePage(new ImageCodeGenerator(selectedPhotos));
+						}
+					}
+				}
+				
+				@Override
+				public boolean isVisible() {
+					return !getOperationType().equals(HomePage.downloadImage) && !getOperationType().equals(HomePage.searchImage);
+				}
+				
+//				@Override
+//				public boolean isEnabled() {
+//					if(getOperationType().equals(HomePage.generatePC)){
+//						return getSelected().size()!=0;
+//					}
+//					return true;
+//				}
+			};
+			add(submitButton);
 		}
 		
 		@Override
@@ -156,6 +234,14 @@ public class TagSearch extends BasePage {
 	public String getOperation() {return operation;}
 
 	public void setOperation(String operation) {this.operation = operation;}
+
+	public Long getOperationType() {return operationType;}
+
+	public void setOperationType(Long operationType) {this.operationType = operationType;}
+
+	public String getErrorMesage() {return errorMesage;}
+
+	public void setErrorMesage(String errorMesage) {this.errorMesage = errorMesage;}
 }
 
 

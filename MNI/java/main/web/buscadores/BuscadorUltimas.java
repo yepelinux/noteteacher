@@ -63,6 +63,7 @@ public class BuscadorUltimas implements IBuscadorImagenes{
 		}
 
 
+	@SuppressWarnings("unchecked")
 	public List<Object> getListaFotosMap(String ultimas, int pagina, int imagenesPorPagina) 
 			throws IOException,	SAXException, FlickrException {
 		PhotoList listaFotos = this.getListaFotos(ultimas, 1, imagenesPorPagina);
@@ -76,7 +77,9 @@ public class BuscadorUltimas implements IBuscadorImagenes{
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("id", photo.getId());
 			map.put("url", photo.getSmallUrl());
+			map.put("largeUrl", photo.getLargeUrl());
 			map.put("description", photo.getDescription());
+			map.put("title", photo.getTitle() );
 			result.add(map);
 		}
 		return result;

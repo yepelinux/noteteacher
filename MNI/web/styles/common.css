@@ -217,3 +217,12 @@ div.homeText{
 	font-weight:bold;
 }
 
+span.error{
+	cursor:pointer;
+	font-family: Verdana,Arial,sans-serif;
+	font-size: 1em;
+	font-weight:bold;
+	padding: 10px;
+	background-color: #E0E4E8;
+}
+
