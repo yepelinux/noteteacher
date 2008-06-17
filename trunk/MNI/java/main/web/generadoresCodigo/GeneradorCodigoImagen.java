@@ -1,6 +1,7 @@
 package generadoresCodigo;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import org.xml.sax.SAXException;
 
@@ -69,10 +70,13 @@ public class GeneradorCodigoImagen implements IGeneradorCodigo{
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public String getCodigoImagen(HashMap<String, Object> foto, int alto, int ancho){
 		
-		
-		
+		return "<a href=\"http://" + ConfigApp.URL_APP + "\"><img height=\"" + alto + "\" width=\""+ ancho + "\" src=\"" + foto.get("url") + "\" Alt=\"MegaPhotos\"></a>";
 		
 	}
+
 
 }

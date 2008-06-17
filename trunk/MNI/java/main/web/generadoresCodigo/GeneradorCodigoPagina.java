@@ -1,8 +1,9 @@
 package generadoresCodigo;
 
 import java.io.IOException;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.xml.sax.SAXException;
 
@@ -78,7 +79,7 @@ public class GeneradorCodigoPagina implements IGeneradorCodigo{
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public String generarContenido(PhotoList listaFotos){
+	private String generarContenido(PhotoList listaFotos){
 		
 		int i;
 		String contenido;
@@ -165,5 +166,113 @@ public class GeneradorCodigoPagina implements IGeneradorCodigo{
 			e.printStackTrace();
 		}
 	}
+	
+	
+	public String getCodigoPagina(List<HashMap<String, Object>> listaFotos,  String titulo){
+
+		String encabezado;
+		String cuerpo;
+		String contenido;
+		String pie;
+		
+		/**
+		 * Genero el contenido de imagenes de la pagina
+		 */
+		contenido = generarContenido(listaFotos);
+		
+		
+		
+		encabezado = 
+		
+			"<html>" +'\n'+
+			"	<head>" +'\n'+
+			"		<title>" + titulo + "</title>" +'\n'+
+			"	</head>" +'\n';
+		
+		
+		cuerpo = 
+			
+			"	<body>" +'\n'+
+			"		<font size=\"7\" face=\"Impact\">" + titulo + "</font>" +'\n'+
+			"		<br>" +'\n'+
+			"		<table width=\"100%\">" +'\n';
+			
+		cuerpo += contenido;
+
+		cuerpo +=
+		
+			"		</table >" +'\n'+
+			"	</body>" +'\n';
+		
+		pie = 
+			
+			"</html>";
+
+		
+		return encabezado + cuerpo + pie;
+		
+	}
+	
+	/**
+	 * 
+	 * Genera el codigo html de la porcion de la pagina que muestra la fotos. 
+	 * Las imagenes se generan con filas de tres imagenes
+	 * 
+	 * @param foto
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	private String generarContenido(List<HashMap<String, Object>> listaFotos){
+		
+		int i;
+		String contenido;
+		
+		/**
+		 * Comienza la primera fila
+		 */
+		
+		contenido = 
+			"			<tr>" +'\n';
+		
+		
+		i=0;
+		for(Map photo : listaFotos){
+			
+			if(i%IMAGENES_POR_FILA == 0 && i != 0){
+				
+				contenido +=
+				
+					"			<tr>" +'\n'+
+					"			<tr>" +'\n';
+			}
+			
+			/**
+			 * genero una a una las imagenes 
+			 */
+			contenido +=
+			
+				"				<td>" +'\n'+
+				"					<div>" + photo.get("title") + "</div>" +'\n'+
+				"					<a href=\"http://" + ConfigApp.URL_APP + "\"><img border=\"2px\" height=\"60\" width=\"60\" src=\""+ photo.get("url") +"\" Alt=\"MegaPhotos\"></a>"+'\n'+
+				"				<td>" +'\n';
+			
+			
+			i++;
+		}
+		
+		/**
+		 * Cierro la ultima fila
+		 */
+		
+		contenido += 
+		
+		"			<tr>" + '\n';
+		
+		return contenido;
+		
+	}
+
+	
+	
 
 }

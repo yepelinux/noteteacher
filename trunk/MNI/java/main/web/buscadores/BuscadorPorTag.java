@@ -66,7 +66,9 @@ public class BuscadorPorTag implements IBuscadorImagenes{
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("id", photo.getId());
 			map.put("url", photo.getSmallUrl());
+			map.put("largeUrl", photo.getLargeUrl());
 			map.put("description", photo.getDescription());
+			map.put("title", photo.getTitle() );
 			result.add(map);
 		}
 		return result;

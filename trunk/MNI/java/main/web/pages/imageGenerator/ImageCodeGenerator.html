@@ -1,0 +1,32 @@
+<html xmlns:wicket="http://wicket.sourceforge.net/">
+<head>
+</head>
+
+<body>
+	<wicket:extend>
+		<h2 align="center">Generador de Código de Imagen</h2>
+		
+		<form wicket:id="inputForm">
+			<table class="searchTable" align="center">
+				<tr>
+					<td align="right">Alto:</td>
+					<td ><input class="text3" wicket:id="alto" type="text" maxlength="50"/></td>				
+				</tr>
+				<tr>
+					<td align="right">Ancho:</td>
+					<td ><input class="text3" wicket:id="ancho" type="text" maxlength="50"/></td>				
+				</tr>
+				<tr>
+					<td><span></span></td>
+					<td align="left"><a wicket:id="generateButton">Generar</a></td>
+				</tr>
+			</table>
+		</form>
+		
+		<div wicket:id="htmlContainer" align="center">
+			<textarea wicket:id="html" rows="30" cols="100" readonly="readonly"> </textarea>
+		</div>
+		
+	</wicket:extend>
+</body>
+</html>

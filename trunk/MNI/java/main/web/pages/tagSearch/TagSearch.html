@@ -7,6 +7,10 @@
 		<h2 align="center">Busqueda de Fotos por Tag</h2>
 		<h2 align="center"><span wicket:id="operationType"></span></h2>
 		
+		<div  wicket:id="errorContainer" class="errorContainer" align="center">
+			<span wicket:id="error" > </span>
+		</div>
+		
 		<form wicket:id="searchForm" >
 			<table class="searchTable" align="center">
 				<tr>
@@ -17,13 +21,17 @@
 					<td><span></span></td>
 					<td align="left"><a wicket:id="searchButton">Buscar</a></td>
 				</tr>
+				<tr>
+					<td><span></span></td>
+					<td align="left"><a wicket:id="submitButton">Submit</a></td>
+				</tr>
 			</table>
 		</form>
 		
 		<table align="center">
 			<thead>
 				<tr align="center">
-					<th>Check</th>
+					<th><div wicket:id="checkLabel">Check</div></th>
 					<th>Id</th>
 					<th>Url</th>
 					<th>Imagen</th>
