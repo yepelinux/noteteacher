@@ -1,6 +1,9 @@
 Tareas
 
 1-Poner estilo a las paginas generadas
+2-opcion para generar codigo de foros
+3-Dar opcion para bajar en un zip el codigo generado
+4-opcion bajar fotos
 
 
 
@@ -9,4 +12,5 @@ Tareas
 Bugs
 
 1-En las busquedas se traen fotos que no se ven
-2-utilizar no ip
+2-utilizar no ip, porque las fotos referencian 
+a el servidor donde esta la app.
