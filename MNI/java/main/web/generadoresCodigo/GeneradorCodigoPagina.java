@@ -184,18 +184,56 @@ public class GeneradorCodigoPagina implements IGeneradorCodigo{
 		
 		encabezado = 
 		
-			"<html>" +'\n'+
+			"<html>" + '\n'+ 
 			"	<head>" +'\n'+
 			"		<title>" + titulo + "</title>" +'\n'+
-			"	</head>" +'\n';
+			"	</head>" +'\n' +
+		
+			"<style type=\"text/css\">" +'\n'+			
+			"body { "+ '\n'+
+				"font-family: Verdana, arial, sans-serif;"+'\n'+
+				"font-size: 82%;"+'\n'+
+				"background-color: white;"+'\n'+
+				"background-image: url(images/pageBg.jpg);"+'\n'+
+				"background-repeat: repeat-x;"+'\n'+
+			"}"+'\n'+
+				
+			"H1 {"+'\n'+
+			"	color: #005066;"+'\n'+
+			"	text-align: center;"+'\n'+
+			"}"+'\n'+
+				
+			"div.imageTitle{"+'\n'+
+			"	font-size: 0.8em;"+'\n'+
+			"	color: 005066;"+'\n'+
+			"	background-image: url(images/top_subpanel/top_subpanel_center.jpg);"+'\n'+ 
+			"	background-repeat: repeat-x;"+'\n'+
+			"	padding-left: 7px;"+'\n'+
+			"	padding-right: 7px;"+'\n'+
+			"} "+'\n'+
+			
+			".maintable{"+'\n'+
+			"	position: relative;"+'\n'+
+			"	top: 50px;"+'\n'+
+			"}"+'\n'+
+			
+			"table td{"+'\n'+
+			"	padding: 20px;"+'\n'+
+			"}"+'\n'+
+			
+			"img{"+'\n'+
+			"	margin-top: 10px;"+'\n'+
+			"}"+'\n'+
+			" </style>"+'\n';
+
 		
 		
 		cuerpo = 
 			
 			"	<body>" +'\n'+
-			"		<font size=\"7\" face=\"Impact\">" + titulo + "</font>" +'\n'+
+			"		<H1 >" + titulo + "</H1>" +'\n'+
 			"		<br>" +'\n'+
-			"		<table width=\"100%\">" +'\n';
+			"		<table align=\"center\" class=\"mainTable\" >" + '\n';
 			
 		cuerpo += contenido;
 
@@ -251,9 +289,9 @@ public class GeneradorCodigoPagina implements IGeneradorCodigo{
 			 */
 			contenido +=
 			
-				"				<td>" +'\n'+
-				"					<div>" + photo.get("title") + "</div>" +'\n'+
-				"					<a href=\"http://" + ConfigApp.URL_APP + "\"><img border=\"2px\" height=\"60\" width=\"60\" src=\""+ photo.get("url") +"\" Alt=\"MegaPhotos\"></a>"+'\n'+
+				"				<td align=\"center\">" +'\n'+
+				"					<div class=\"imageTitle\">" + photo.get("title") + "</div>" +'\n'+
+				"					<a href=\"http://" + ConfigApp.URL_APP + "\"><img height=\"110\" width=\"110\" src=\""+ photo.get("url") +"\" Alt=\"MegaPhotos\"></a>"+'\n'+
 				"				<td>" +'\n';
 			
 			

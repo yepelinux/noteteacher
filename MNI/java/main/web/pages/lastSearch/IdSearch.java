@@ -12,6 +12,7 @@ import pages.imageGenerator.ImageCodeGenerator;
 import pages.pageGenerator.PageCodeGenerator;
 import wicket.ajax.AjaxRequestTarget;
 import wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
+import wicket.ajax.markup.html.AjaxLink;
 import wicket.ajax.markup.html.form.AjaxSubmitLink;
 import wicket.markup.html.WebMarkupContainer;
 import wicket.markup.html.basic.Label;
@@ -81,7 +82,6 @@ public class IdSearch extends BasePage {
 		};
 		checkLabel.setOutputMarkupId(true);
 		add(checkLabel);
-		
 	}
 	
 	private class SearchForm extends Form{
@@ -165,6 +165,31 @@ public class IdSearch extends BasePage {
 //				}
 			};
 			add(submitButton);
+			
+			
+			AjaxLink selectAll = new AjaxLink("selectAll"){
+
+				@SuppressWarnings("unchecked")
+				@Override
+				public void onClick(AjaxRequestTarget target) {
+					
+					getSelected().clear();
+					
+					for(Object photo : getPhotos()){
+						String id = (String)((HashMap<String, Object>)photo).get("id");
+						getSelected().add(id);
+						((HashMap<String, Object>)photo).put("check", true);
+					}
+					target.addComponent(getPage().get("tableContainer"));
+				}
+				@Override
+				public boolean isVisible() {
+					return !getOperationType().equals(HomePage.searchImage) && !getOperationType().equals(HomePage.generateIC);
+				}
+			};
+			selectAll.setOutputMarkupId(true);
+			add(selectAll);
+
 		}
 		
 		@Override

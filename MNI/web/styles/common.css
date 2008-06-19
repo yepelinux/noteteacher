@@ -237,3 +237,11 @@ span.error{
 	background-color: #E0E4E8;
 }
 
+a.selectAll{
+	text-decoration: none;
+	color: white;
+	font-size: 0.8em;
+	position: relative;
+	left: 55px;
+		
+}
