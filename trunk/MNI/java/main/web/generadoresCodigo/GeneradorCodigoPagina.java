@@ -181,7 +181,8 @@ public class GeneradorCodigoPagina implements IGeneradorCodigo{
 		contenido = generarContenido(listaFotos);
 		
 		
-		
+//		http://www.megaphotos.com.ar/imagenes/top_subpanel_center.jpg
+//			http://www.megaphotos.com.ar/imagenes/pageBG.jpg
 		encabezado = 
 		
 			"<html>" + '\n'+ 
@@ -194,7 +195,7 @@ public class GeneradorCodigoPagina implements IGeneradorCodigo{
 				"font-family: Verdana, arial, sans-serif;"+'\n'+
 				"font-size: 82%;"+'\n'+
 				"background-color: white;"+'\n'+
-				"background-image: url(images/pageBg.jpg);"+'\n'+
+				"background-image: url(http://www.megaphotos.com.ar/imagenes/pageBG.jpg);"+'\n'+
 				"background-repeat: repeat-x;"+'\n'+
 			"}"+'\n'+
 				
@@ -206,7 +207,7 @@ public class GeneradorCodigoPagina implements IGeneradorCodigo{
 			"div.imageTitle{"+'\n'+
 			"	font-size: 0.8em;"+'\n'+
 			"	color: 005066;"+'\n'+
-			"	background-image: url(images/top_subpanel/top_subpanel_center.jpg);"+'\n'+ 
+			"	background-image: url(http://www.megaphotos.com.ar/imagenes/top_subpanel_center.jpg);"+'\n'+ 
 			"	background-repeat: repeat-x;"+'\n'+
 			"	padding-left: 7px;"+'\n'+
 			"	padding-right: 7px;"+'\n'+

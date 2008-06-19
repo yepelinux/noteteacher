@@ -4,6 +4,4 @@
 
 <beans>
 	
-	<!--bean id="exampleApplication" class="com.teracode.example.web.ExampleApplication"/-->
-	
 </beans>
