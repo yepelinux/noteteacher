@@ -1,4 +1,4 @@
-package com.teracode.example.web;
+package pages.basePage;
 
 import pages.homePage.HomePage;
 import wicket.ISessionFactory;

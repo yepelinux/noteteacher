@@ -1,5 +1,6 @@
 package pages.homePage;
 
+import pages.basePage.BasePage;
 import pages.idSearch.LastSearch;
 import pages.lastSearch.IdSearch;
 import pages.tagSearch.TagSearch;
@@ -10,7 +11,6 @@ import wicket.markup.html.basic.Label;
 import wicket.markup.html.form.Form;
 import wicket.model.PropertyModel;
 
-import com.teracode.example.web.BasePage;
 
 @SuppressWarnings("serial")
 public class HomePage extends BasePage {

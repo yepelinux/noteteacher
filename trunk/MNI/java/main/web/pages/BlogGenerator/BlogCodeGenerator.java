@@ -5,6 +5,8 @@ import generadoresCodigo.GeneradorCodigoBlog;
 import java.util.HashMap;
 import java.util.List;
 
+import pages.basePage.BasePage;
+
 import wicket.ajax.AjaxRequestTarget;
 import wicket.ajax.markup.html.form.AjaxSubmitLink;
 import wicket.markup.html.WebMarkupContainer;
@@ -13,7 +15,6 @@ import wicket.markup.html.form.TextArea;
 import wicket.markup.html.form.TextField;
 import wicket.model.PropertyModel;
 
-import com.teracode.example.web.BasePage;
 
 @SuppressWarnings("serial")
 public class BlogCodeGenerator extends BasePage {

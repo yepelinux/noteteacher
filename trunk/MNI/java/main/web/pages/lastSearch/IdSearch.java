@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import pages.BlogGenerator.BlogCodeGenerator;
+import pages.basePage.BasePage;
 import pages.components.StaticImage;
 import pages.forumGenerator.ForumCodeGenerator;
 import pages.homePage.HomePage;
@@ -28,7 +29,6 @@ import wicket.model.PropertyModel;
 import buscadores.BuscadorPorNombre;
 import buscadores.IBuscadorImagenes;
 
-import com.teracode.example.web.BasePage;
 
 import config.ConfigApp;
 
