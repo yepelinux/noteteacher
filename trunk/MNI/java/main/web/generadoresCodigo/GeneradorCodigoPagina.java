@@ -191,12 +191,12 @@ public class GeneradorCodigoPagina implements IGeneradorCodigo{
 			"	</head>" +'\n' +
 		
 			"<style type=\"text/css\">" +'\n'+			
-			"body { "+ '\n'+
-				"font-family: Verdana, arial, sans-serif;"+'\n'+
-				"font-size: 82%;"+'\n'+
-				"background-color: white;"+'\n'+
-				"background-image: url(http://www.megaphotos.com.ar/imagenes/pageBG.jpg);"+'\n'+
-				"background-repeat: repeat-x;"+'\n'+
+			"	body { "+ '\n'+
+			"	font-family: Verdana, arial, sans-serif;"+'\n'+
+			"	font-size: 82%;"+'\n'+
+			"	background-color: white;"+'\n'+
+			"	background-image: url(http://www.megaphotos.com.ar/imagenes/pageBG.jpg);"+'\n'+
+			"	background-repeat: repeat-x;"+'\n'+
 			"}"+'\n'+
 				
 			"H1 {"+'\n'+
