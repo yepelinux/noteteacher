@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.teracode.example.core.common.Entity;
-import com.teracode.example.core.common.ObjectAlreadyExistsException;
 import com.teracode.example.core.common.ObjectNotFoundException;
 
 @SuppressWarnings("serial")

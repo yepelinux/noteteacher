@@ -2,8 +2,8 @@ package com.teracode.example.core.presenter.shift;
 
 import java.util.List;
 
-import com.teracode.example.core.domain.*;
-import com.teracode.example.core.presenter.course.ICoursePresenterView;
+import com.teracode.example.core.domain.Course;
+import com.teracode.example.core.domain.Shift;
 import com.teracode.example.core.repository.ICourseRepository;
 
 public class ShiftPresenter implements IShiftPresenter{

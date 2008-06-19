@@ -1,8 +1,8 @@
 package com.teracode.example.core.domain;
 
-import com.teracode.example.core.common.ObjectAlreadyExistsException;
-
 import junit.framework.TestCase;
+
+import com.teracode.example.core.common.ObjectAlreadyExistsException;
 
 public class ShiftTest extends TestCase {
 

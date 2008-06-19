@@ -23,9 +23,15 @@ public abstract class BasePage extends ExamplePage implements Serializable{
 		} else if(operationType.equals(HomePage.generateIC)){
 			return "Generar Codigo de Imagen";
 			
-		} else if(operationType.equals(HomePage.generateIC)){
+		} else if(operationType.equals(HomePage.searchImage)){
 			return "BuscarImagen";
-		} 
+			
+		} else if(operationType.equals(HomePage.generateFC)){
+			return "Generar Código de Forum";
+			
+		} else if(operationType.equals(HomePage.generateBC)){
+			return "Generar Código de Blog";
+		}
 		
 		return "";
 	}

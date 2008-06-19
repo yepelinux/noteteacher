@@ -6,13 +6,9 @@ import wicket.markup.html.panel.FeedbackPanel;
 import wicket.model.PropertyModel;
 import wicket.spring.injection.annot.SpringBean;
 
-import com.teracode.example.core.domain.Student;
 import com.teracode.example.core.domain.StudentInCurseException;
-import com.teracode.example.core.presenter.student.IStudentListPresenter;
 import com.teracode.example.core.presenter.student.IStudentPresenter;
 import com.teracode.example.core.presenter.student.IStudentPresenterView;
-import com.teracode.example.core.repository.IStudentRepository;
-import com.teracode.example.core.repository.StudentRepository;
 import com.teracode.example.web.BasePage;
 
 @SuppressWarnings("serial")

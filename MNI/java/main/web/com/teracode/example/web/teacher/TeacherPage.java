@@ -6,11 +6,8 @@ import wicket.markup.html.panel.FeedbackPanel;
 import wicket.model.PropertyModel;
 import wicket.spring.injection.annot.SpringBean;
 
-import com.teracode.example.core.domain.Teacher;
 import com.teracode.example.core.presenter.teacher.ITeacherPresenter;
 import com.teracode.example.core.presenter.teacher.ITeacherPresenterView;
-import com.teracode.example.core.repository.ITeacherRepository;
-import com.teracode.example.core.repository.TeacherRepository;
 import com.teracode.example.web.BasePage;
 
 public class TeacherPage extends BasePage implements ITeacherPresenterView {

@@ -23,8 +23,6 @@ import com.teracode.example.core.common.Entity;
 import com.teracode.example.core.domain.Course;
 import com.teracode.example.core.presenter.course.ICourseListPresenter;
 import com.teracode.example.core.presenter.course.ICourseListPresenterView;
-import com.teracode.example.core.presenter.course.ICoursePresenter;
-import com.teracode.example.core.repository.ICourseRepository;
 import com.teracode.example.web.BasePage;
 import com.teracode.example.web.common.EntityDetachableModel;
 import com.teracode.example.web.shift.ShiftPage;

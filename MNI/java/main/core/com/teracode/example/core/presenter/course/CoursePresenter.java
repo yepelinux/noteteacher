@@ -3,9 +3,9 @@ package com.teracode.example.core.presenter.course;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.teracode.example.core.domain.*;
+import com.teracode.example.core.domain.Course;
+import com.teracode.example.core.domain.Teacher;
 import com.teracode.example.core.repository.ICourseRepository;
-import com.teracode.example.core.repository.IStudentRepository;
 import com.teracode.example.core.repository.ITeacherRepository;
 
 

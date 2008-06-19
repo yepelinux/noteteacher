@@ -1,6 +1,5 @@
 package com.teracode.example.core.presenter.inscription;
 
-import java.util.Map;
 
 public interface IInscriptionPresenterView {
 	
