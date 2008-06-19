@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import pages.basePage.BasePage;
+
 import wicket.IRequestTarget;
 import wicket.RequestCycle;
 import wicket.ajax.AjaxRequestTarget;
@@ -26,7 +28,6 @@ import wicket.model.StringResourceModel;
 import wicket.protocol.http.WebResponse;
 import wicket.util.io.Streams;
 
-import com.teracode.example.web.BasePage;
 
 @SuppressWarnings("serial")
 public class PageCodeGenerator extends BasePage {
