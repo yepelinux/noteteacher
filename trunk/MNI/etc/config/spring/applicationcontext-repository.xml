@@ -5,8 +5,4 @@
 
 <beans>
 
-    <bean id="courseRepository" class="com.teracode.example.core.repository.CourseRepository" />
-    <bean id="teacherRepository" class="com.teracode.example.core.repository.TeacherRepository" />
-    <bean id="studentRepository" class="com.teracode.example.core.repository.StudentRepository" />
-
 </beans>

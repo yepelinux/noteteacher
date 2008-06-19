@@ -5,39 +5,4 @@
 
 <beans>
 
-    <bean id="teacherPresenter" class="com.teracode.example.core.presenter.teacher.TeacherPresenter" >
-    	<property name="teacherRepository" ref="teacherRepository"/>
-    </bean>
-
-    <bean id="teacherListPresenter" class="com.teracode.example.core.presenter.teacher.TeacherListPresenter" >
-    	<property name="teacherRepository" ref="teacherRepository"/>
-    </bean>
-
-    <bean id="studentPresenter" class="com.teracode.example.core.presenter.student.StudentPresenter" >
-    	<property name="studentRepository" ref="studentRepository"/>
-    </bean>
-
-    <bean id="studentListPresenter" class="com.teracode.example.core.presenter.student.StudentListPresenter" >
-    	<property name="studentRepository" ref="studentRepository"/>
-    </bean>
-    
-    <bean id="coursePresenter" class="com.teracode.example.core.presenter.course.CoursePresenter" >
-    	<property name="courseRepository" ref="courseRepository"/>
-    	<property name="teacherRepository" ref="teacherRepository"/>
-    </bean>
-    
-    <bean id="courseListPresenter" class="com.teracode.example.core.presenter.course.CourseListPresenter" >
-    	<property name="courseRepository" ref="courseRepository"/>
-    </bean>
-    
-    <bean id="shiftPresenter" class="com.teracode.example.core.presenter.shift.ShiftPresenter" >
-    	<property name="courseRepository" ref="courseRepository"/>
-    </bean>
-    
-    <bean id="inscriptionPresenter" class="com.teracode.example.core.presenter.inscription.InscriptionPresenter" >
-    	<property name="courseRepository" ref="courseRepository"/>
-    	<property name="studentRepository" ref="studentRepository"/>
-    </bean>
-    
-
 </beans>
