@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import pages.BlogGenerator.BlogCodeGenerator;
 import pages.components.StaticImage;
+import pages.forumGenerator.ForumCodeGenerator;
 import pages.homePage.HomePage;
 import pages.imageGenerator.ImageCodeGenerator;
 import pages.pageGenerator.PageCodeGenerator;
@@ -135,6 +137,11 @@ public class LastSearch extends BasePage {
 							
 							setResponsePage(new ImageCodeGenerator(selectedPhotos));
 						}
+					} else if(getOperationType().equals(HomePage.generateFC)) {
+						setResponsePage(new ForumCodeGenerator(selectedPhotos));
+						
+					}else if(getOperationType().equals(HomePage.generateBC)) {
+						setResponsePage(new BlogCodeGenerator(selectedPhotos));
 					}
 				}
 				
@@ -142,14 +149,6 @@ public class LastSearch extends BasePage {
 				public boolean isVisible() {
 					return !getOperationType().equals(HomePage.downloadImage) && !getOperationType().equals(HomePage.searchImage);
 				}
-				
-//				@Override
-//				public boolean isEnabled() {
-//					if(getOperationType().equals(HomePage.generatePC)){
-//						return getSelected().size()!=0;
-//					}
-//					return true;
-//				}
 			};
 			add(submitButton);
 		}
@@ -237,6 +236,7 @@ public class LastSearch extends BasePage {
 	public String getErrorMesage() {return errorMesage;}
 
 	public void setErrorMesage(String errorMesage) {this.errorMesage = errorMesage;}
+
 }
 
 

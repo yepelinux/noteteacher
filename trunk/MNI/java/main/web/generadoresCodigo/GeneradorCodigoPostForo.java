@@ -1,8 +1,9 @@
 package generadoresCodigo;
 
 import java.io.IOException;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.xml.sax.SAXException;
 
@@ -73,7 +74,7 @@ public class GeneradorCodigoPostForo implements IGeneradorCodigo{
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public String generarContenido(PhotoList listaFotos){
+	private String generarContenido(PhotoList listaFotos){
 		
 		int i;
 		String contenido;
@@ -150,5 +151,99 @@ public class GeneradorCodigoPostForo implements IGeneradorCodigo{
 			e.printStackTrace();
 		}
 	}
+	
+	
+	/**
+	 *  Genera todo el codigo (BBCODE) para utilizar imagenes en un post de un foro
+	 *  
+	 * @param ImagenUrl
+	 * @return
+	 */
+	public String getCodigoPagina(List<HashMap<String, Object>>	listaFotos, String titulo){
+		
+		String encabezado;
+		String cuerpo;
+		
+		/**
+		 * titulo
+		 */
+		
+		encabezado = 
+			"[size=24][b]" + titulo + "[/b][/size]"+'\n';
+		
+		
+		/**
+		 * abro el listado de fotos 
+		 */
+		
+		cuerpo =
+			"[list]"+'\n';
+				
+		/**
+		 * Genero el contenido de imagenes del post
+		 */
+		cuerpo += generarContenido(listaFotos);
+		
+		/**
+		 * cierro el listado de fotos 
+		 */
+		
+		cuerpo +=
+			"[/list]";
+		
+		return encabezado + cuerpo;
+		
+	}
+	
+	/**
+	 * 
+	 * Genera el codigo html de la porcion de la pagina que muestra la fotos. 
+	 * Las imagenes se generan con filas de tres imagenes
+	 * 
+	 * @param foto
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	private String generarContenido(List<HashMap<String, Object>> listaFotos){
+		
+		int i;
+		String contenido;
+		
+		/**
+		 * Comienza la primera fila
+		 */
+		
+		contenido = "";
+		
+		
+		
+		
+		i=0;
+		for(Map<String, Object> photo : listaFotos){
+			
+			if(i%IMAGENES_POR_FILA == 0 && i != 0){
+				
+				contenido +=
+					
+					'\n';
+					
+			}
+			
+			/**
+			 * genero una a una las imagenes 
+			 */
+			
+			contenido +=
+				
+				"[*][size=14][b]" + photo.get("title") + "[/b][/size]"+'\n'+
+				"[URL=http://" + ConfigApp.URL_APP + "][IMG]" + photo.get("url") + "[/IMG][/URL]"+'\n';
+						
+			i++;
+		}
+
+		return contenido;
+		
+	}
+
 
 }

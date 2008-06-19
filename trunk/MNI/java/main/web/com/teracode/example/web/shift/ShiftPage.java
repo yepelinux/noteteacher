@@ -18,7 +18,6 @@ import wicket.spring.injection.annot.SpringBean;
 
 import com.teracode.example.core.common.Entity;
 import com.teracode.example.core.common.ObjectAlreadyExistsException;
-import com.teracode.example.core.domain.Course;
 import com.teracode.example.core.domain.Shift;
 import com.teracode.example.core.presenter.shift.IShiftPresenter;
 import com.teracode.example.core.presenter.shift.IShiftPresenterView;

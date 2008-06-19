@@ -21,6 +21,8 @@ public class HomePage extends BasePage {
 	public static Long generateIC 		= 2L;
 	public static Long generatePC 		= 3L;
 	public static Long searchImage 		= 4L;
+	public static Long generateFC 		= 5L;
+	public static Long generateBC 		= 6L;
 	//-----------------------------------------------------
 	public static Long searchNone	 	= 0L;
 	public static Long searchTag	 	= 1L;
@@ -91,16 +93,16 @@ public class HomePage extends BasePage {
 			//---------------------------------------------------
 			//------------Operation Type Buttons
 			//---------------------------------------------------
-			AjaxLink downloadImage = new AjaxLink("download"){
-				@Override
-				public void onClick(AjaxRequestTarget target) {
-					setOperation("Download Imagen");
-					setOperationType(HomePage.downloadImage);
-					target.addComponent(operationLabel);
-					target.addComponent(mainContainer);
-				}
-			};
-			add(downloadImage);
+//			AjaxLink downloadImage = new AjaxLink("download"){
+//				@Override
+//				public void onClick(AjaxRequestTarget target) {
+//					setOperation("Download Imagen");
+//					setOperationType(HomePage.downloadImage);
+//					target.addComponent(operationLabel);
+//					target.addComponent(mainContainer);
+//				}
+//			};
+//			add(downloadImage);
 			
 			
 			AjaxLink generateImage = new AjaxLink("generateCodeImage"){
@@ -125,6 +127,28 @@ public class HomePage extends BasePage {
 				}
 			};
 			add(generatePage);
+			
+			AjaxLink generateForum = new AjaxLink("generateCodeForum"){
+				@Override
+				public void onClick(AjaxRequestTarget target) {
+					setOperation("Generar Código de Forum");
+					setOperationType(HomePage.generateFC);
+					target.addComponent(operationLabel);
+					target.addComponent(mainContainer);
+				}
+			};
+			add(generateForum);
+
+			AjaxLink generateBlog = new AjaxLink("generateCodeBlog"){
+				@Override
+				public void onClick(AjaxRequestTarget target) {
+					setOperation("Generar Código de Blog");
+					setOperationType(HomePage.generateBC);
+					target.addComponent(operationLabel);
+					target.addComponent(mainContainer);
+				}
+			};
+			add(generateBlog);
 
 			
 			AjaxLink searchImage = new AjaxLink("searchImage"){

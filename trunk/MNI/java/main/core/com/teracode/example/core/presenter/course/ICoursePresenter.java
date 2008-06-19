@@ -2,8 +2,6 @@ package com.teracode.example.core.presenter.course;
 
 import java.util.Map;
 
-import com.teracode.example.core.presenter.course.ICoursePresenterView;
-
 public interface ICoursePresenter {
 	
 	public void save();

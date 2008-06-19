@@ -4,10 +4,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.teracode.example.core.presenter.course.ICoursePresenterView;
+import com.teracode.example.core.domain.Course;
+import com.teracode.example.core.domain.Shift;
+import com.teracode.example.core.domain.Student;
 import com.teracode.example.core.repository.ICourseRepository;
 import com.teracode.example.core.repository.IStudentRepository;
-import com.teracode.example.core.domain.*;
 
 public class InscriptionPresenter implements IInscriptionPresenter{
 

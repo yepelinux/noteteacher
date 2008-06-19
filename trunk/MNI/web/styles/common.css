@@ -10,6 +10,7 @@ div#header {
     height: 56px;
     margin: 0;
     padding: 0;
+    border-top: 1px solid #000000;
 }
 
 div#body {
@@ -58,7 +59,17 @@ div#footer {
 	/*background-image: url(../img/logo.jpg);
 	background-repeat:no-repeat;
 	background-position: right;*/
-	height: 63px;
+/*	background-color: #384353;*/
+    margin: 0;
+    padding: 0;
+    /*margin-bottom: 10px;*/ 
+}
+
+
+div#adsense {
+	background-color: #8893A1;
+    margin: 0;
+    padding: 0;
 }
 
 h1 {

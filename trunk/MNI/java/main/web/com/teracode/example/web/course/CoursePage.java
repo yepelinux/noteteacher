@@ -1,12 +1,7 @@
 package com.teracode.example.web.course;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import org.xml.sax.SAXException;
 
 import wicket.Component;
 import wicket.markup.html.form.DropDownChoice;
@@ -18,17 +13,9 @@ import wicket.model.AbstractReadOnlyModel;
 import wicket.model.PropertyModel;
 import wicket.spring.injection.annot.SpringBean;
 
-//import buscadores.BuscarPorNombre;
-
-import com.aetrion.flickr.FlickrException;
 import com.teracode.example.core.common.ObjectAlreadyExistsException;
-import com.teracode.example.core.domain.Course;
-import com.teracode.example.core.domain.Teacher;
 import com.teracode.example.core.presenter.course.ICoursePresenter;
 import com.teracode.example.core.presenter.course.ICoursePresenterView;
-import com.teracode.example.core.presenter.student.IStudentPresenter;
-import com.teracode.example.core.repository.ICourseRepository;
-import com.teracode.example.core.repository.ITeacherRepository;
 import com.teracode.example.web.BasePage;
 
 @SuppressWarnings("serial")

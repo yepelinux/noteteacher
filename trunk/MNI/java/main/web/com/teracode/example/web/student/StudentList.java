@@ -17,7 +17,6 @@ import com.teracode.example.core.domain.Student;
 import com.teracode.example.core.domain.StudentInCurseException;
 import com.teracode.example.core.presenter.student.IStudentListPresenter;
 import com.teracode.example.core.presenter.student.IStudentListPresenterView;
-import com.teracode.example.core.repository.IStudentRepository;
 import com.teracode.example.web.BasePage;
 import com.teracode.example.web.common.EntityDetachableModel;
 import com.teracode.example.web.inscription.InscriptionPage;

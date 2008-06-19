@@ -2,8 +2,8 @@ package com.teracode.example.core.presenter.course;
 
 import java.util.List;
 
-import com.teracode.example.core.repository.ICourseRepository;
 import com.teracode.example.core.domain.Course;
+import com.teracode.example.core.repository.ICourseRepository;
 
 public class CourseListPresenter implements ICourseListPresenter{
 

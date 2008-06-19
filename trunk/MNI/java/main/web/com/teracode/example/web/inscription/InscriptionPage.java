@@ -1,9 +1,7 @@
 package com.teracode.example.web.inscription;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 
 import wicket.Component;
 import wicket.extensions.markup.html.repeater.data.DataView;
@@ -21,16 +19,10 @@ import wicket.model.IModel;
 import wicket.model.PropertyModel;
 import wicket.spring.injection.annot.SpringBean;
 
-import com.teracode.example.core.domain.Course;
 import com.teracode.example.core.domain.Shift;
-import com.teracode.example.core.domain.Student;
-import com.teracode.example.core.presenter.course.ICoursePresenter;
 import com.teracode.example.core.presenter.inscription.IInscriptionPresenter;
 import com.teracode.example.core.presenter.inscription.IInscriptionPresenterView;
-import com.teracode.example.core.repository.ICourseRepository;
-import com.teracode.example.core.repository.IStudentRepository;
 import com.teracode.example.web.BasePage;
-import com.teracode.example.web.shift.ShiftPage;
 
 @SuppressWarnings("serial")
 public class InscriptionPage extends BasePage implements IInscriptionPresenterView{

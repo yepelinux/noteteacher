@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import pages.BlogGenerator.BlogCodeGenerator;
 import pages.components.StaticImage;
+import pages.forumGenerator.ForumCodeGenerator;
 import pages.homePage.HomePage;
 import pages.imageGenerator.ImageCodeGenerator;
 import pages.pageGenerator.PageCodeGenerator;
@@ -141,6 +143,11 @@ public class IdSearch extends BasePage {
 							
 							setResponsePage(new ImageCodeGenerator(selectedPhotos));
 						}
+					}else if(getOperationType().equals(HomePage.generateFC)) {
+						setResponsePage(new ForumCodeGenerator(selectedPhotos));
+						
+					}else if(getOperationType().equals(HomePage.generateBC)) {
+						setResponsePage(new BlogCodeGenerator(selectedPhotos));
 					}
 				}
 				
