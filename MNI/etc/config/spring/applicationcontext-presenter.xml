@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
-<!-- Copyright (C) 2005, TeraCode, Inc.  All rights reserved worldwide. -->
-<!-- $Id: applicationcontext.xml 2739 2006-05-03 17:10:19Z ariel $ -->
-
 <beans>
 
 </beans>
